@@ -9,12 +9,12 @@
     },
     "default_locale": "en",
     "background": {
-        "page": "background.html"
+        "scripts": []
     },
     "browser_action": {
         "default_icon": {
-            "19": "images/icon-19.png",
-            "38": "images/icon-38.png"
+            "24": "images/icon-24.png",
+            "32": "images/icon-32.png"
         },
         "default_title": "Chrome Extension"
     },
@@ -23,10 +23,10 @@
         ]
     },
     "permissions": [
+        "storage",
         "http://*/*",
         "https://*/*",
         "contextMenus",
-        "storage",
         "notifications",
         "tabs"
     ],
@@ -48,6 +48,7 @@
             ],
             "js": [
                 "bower_components/jquery/dist/jquery.min.js",
+                "scripts/post-storage.js",
                 "scripts/contentscript.js"
             ],
             "run_at": "document_end",
@@ -58,11 +59,14 @@
                 "*://*.facebook.com/*"
             ],
             "js": [
+                "bower_components/jquery/dist/jquery.min.js",
                 "scripts/shared/facebook.js"
             ],
             "css": [
-                "scripts/shared/facebook.css"
-            ]
+                "css/overlay.css",
+                "css/facebook.css"
+            ],
+            "run_at": "document_end"
         },
         {
             "matches": [
@@ -75,8 +79,9 @@
                 "scripts/shared/twitter.js"
             ],
             "css": [
-                "scripts/shared/twitter.css"
-            ]
+                "css/twitter.css"
+            ],
+            "run_at": "document_end"
         }
     ]
 }

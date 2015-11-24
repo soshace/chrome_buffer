@@ -23,19 +23,21 @@
     width: 60%;
     height: 600px;
     left: 50%;
+    top: 50%;
     margin-left: -300px;
+    margin-top: -300px;
     max-width: 600px;
     min-height: 520px;
     background-color: white;
 }
 
-.buffer-overlay .modal textarea{
+.buffer-overlay .modal textarea {
     box-sizing: border-box;
-    width: 100%;
+    width: 560px;
     height: 74px;
     min-height: 0;
     max-height: none;
-    margin: 0 0 14px;
+    margin: 20px;
     padding: 14px 19px;
     border: 1px solid #d4dce3;
     border-radius: 3px;
@@ -46,3 +48,20 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
+.buffer-overlay .modal button {
+    display: block;
+    width: 200px;
+    height: 40px;
+    margin: 0 20px;
+    background: #168eea;
+    border-color: #007bd2;
+    border-radius: 5px;
+}
+
+.buffer-overlay .modal .thumbnail {
+    margin: 20px;
+    height: 100px;
+    max-width: 300px;
+}
+
