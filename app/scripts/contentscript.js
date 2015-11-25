@@ -67,6 +67,8 @@ ChromeBuffer = (function (w) {
             $imageBox.hide();
             $textField.hide();
             $urlField.hide();
+
+            $commentField.val('');
         },
 
         prepareShare: function (data) {
@@ -101,7 +103,7 @@ ChromeBuffer = (function (w) {
 
         addPost: function () {
             sharedData.comment = $commentField.val();
-            PostStorage.push(sharedData);
+            PostStorage.push(sharedData, closeParent);
         }
 
     };
