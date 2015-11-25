@@ -39,13 +39,9 @@
 
     function check() {
         if (ChromeBuffer) {
-            init();
+            attachShareButton();
             setTimeout(check, 1500);
         }
-    }
-
-    function init() {
-        attachShareButton();
     }
 
     function attachShareButton() {
