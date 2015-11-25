@@ -1,5 +1,7 @@
 (function ($) {
     var attached = false,
+        postSelector = '.stream-item-footer .buffer-inserted',
+        compareChildSelector = '.ProfileTweet-action--buffer-share',
         sharedData = {
             title: '',
             text: '',
@@ -33,11 +35,11 @@
     }
 
     function attachShareButton() {
-        var $shareContainer = $('.stream-item-footer .buffer-inserted'),
+        var $shareContainer = $(postSelector),
             $shareBtn;
 
         $shareContainer.each(function (index, el) {
-            if (!$(el).has('.ProfileTweet-action--buffer-share').length) {
+            if (!$(el).has(compareChildSelector).length) {
                 $shareBtn = createTwitterActionButton();
                 $shareBtn.click(onShareBtnClick.bind($shareBtn));
 
@@ -59,7 +61,6 @@
         $action.attr('class', 'ProfileTweet-action ProfileTweet-action--buffer-share js-toggleState');
         $button.attr('class', 'ProfileTweet-actionButton js-actionButton');
         $iconCntr.attr('class', 'IconContainer js-tooltip');
-        //iconCntr.setAttribute('data-original-title', btnConfig.text); // tooltip text
         $icon.attr('class', 'Icon Icon--buffer-share');
         $circle.attr('class', 'Icon Icon--circle');
         $circleFill.attr('class', 'Icon Icon--circleFill');
