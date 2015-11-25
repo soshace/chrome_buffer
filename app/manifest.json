@@ -44,7 +44,7 @@
             "exclude_matches": [
             ],
             "css": [
-                "css/overlay.css"
+                "styles/overlay.css"
             ],
             "js": [
                 "bower_components/jquery/dist/jquery.min.js",
@@ -63,8 +63,8 @@
                 "scripts/shared/facebook.js"
             ],
             "css": [
-                "css/overlay.css",
-                "css/facebook.css"
+                "styles/overlay.css",
+                "styles/facebook.css"
             ],
             "run_at": "document_end"
         },
@@ -79,7 +79,7 @@
                 "scripts/shared/twitter.js"
             ],
             "css": [
-                "css/twitter.css"
+                "styles/twitter.css"
             ],
             "run_at": "document_end"
         }

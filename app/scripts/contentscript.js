@@ -8,7 +8,14 @@ ChromeBuffer = (function (w) {
         $imageBox,
         $titleField,
         $textField,
-        sharedData = {}
+        $urlField,
+        sharedData = {
+            title: '',
+            imageSrc: '',
+            text: '',
+            url: '',
+            comment: ''
+        }
         ;
     return {
 
@@ -22,7 +29,7 @@ ChromeBuffer = (function (w) {
             $imageBox = $('<img class="thumbnail"/>');
             $titleField = $('<h3 class="title"></h3>');
             $textField = $('<div class="text-content"></div>');
-
+            $urlField = $('<a class="url"></a>');
 
             $parent.appendTo($('body'));
             $parent.append($shadow);
@@ -32,6 +39,7 @@ ChromeBuffer = (function (w) {
 
             $modal.append($imageBox);
             $modal.append($titleField);
+            $modal.append($urlField);
             $modal.append($textField);
 
             $submitBtn.click(this.addPost);
@@ -46,28 +54,53 @@ ChromeBuffer = (function (w) {
             if ($parent.is(":visible")) {
                 $parent.hide();
             } else {
-                $parent.show();
                 this.prepareShare(data);
+                $parent.show();
             }
         },
 
+        clearShare: function () {
+            for (var key in sharedData) {
+                sharedData[key] = '';
+            }
+            $titleField.hide();
+            $imageBox.hide();
+            $textField.hide();
+            $urlField.hide();
+        },
+
         prepareShare: function (data) {
+            this.clearShare();
+
             if (data.title) {
                 sharedData.title = data.title;
                 $titleField.text(data.title);
+                $titleField.show();
+
+                if (data.url) {
+                    sharedData.url = data.url;
+                    $urlField.attr('href', data.url);
+                    $urlField.text(data.url);
+
+                    $textField.show();
+                    $urlField.show();
+                }
             }
             if (data.imageSrc) {
                 sharedData.imageSrc = data.imageSrc;
                 $imageBox.attr('src', data.imageSrc);
+                $imageBox.show();
             }
             if (data.text) {
                 sharedData.text = data.text;
                 $textField.text(data.text);
+                $textField.show();
             }
+
         },
 
         addPost: function () {
-            debugger;
+            sharedData.comment = $commentField.val();
             PostStorage.push(sharedData);
         }
 

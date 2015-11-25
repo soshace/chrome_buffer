@@ -5,7 +5,35 @@
             text: '',
             imageSrc: '',
             url: ''
-        }
+        },
+
+        imageSelector =[
+            'img._46-i',
+            '.uiScaledImageContainer img',
+            '.uiPhotoThumb img',
+            '.photoUnit img',
+            '.fbPhotoImage',
+            '.spotlight'
+        ].join(', '),
+
+        titleSelector = [
+            '.mbs._6m6 a'
+        ].join(','),
+
+        textSelector = [
+            '._6m7'
+        ].join(', '),
+
+        urlSelector =  [
+            '.mbs._6m6 a',
+            'a.shareMediaLink',
+            '.uiAttachmentTitle a',
+            'a.externalShareUnit',
+            'a.shareLink',
+            'a.uiVideoLink',
+            '.shareLink a:not([href="#"])',
+            '._52c6'
+        ].join(', ')
         ;
     check();
 
@@ -35,17 +63,22 @@
     }
 
     function onShareBtnClick() {
-        var currentPost = $(this).parents('div[data-dedupekey]');
+        var currentPost = $(this).parents('div[role="article"]');
         updateSharedData(currentPost);
         ChromeBuffer.toggleOverlay(sharedData);
     }
 
     function updateSharedData(currentPost) {
-        var closestImage = currentPost.find('img._46-i'),
-            textElem = currentPost.find('.userContent')
+        var $closestImage = currentPost.find(imageSelector).first(),
+            $textElem     = currentPost.find(textSelector).first(),
+            $urlElem      = currentPost.find(urlSelector).first(),
+            $titleElem    = currentPost.find(titleSelector).first()
             ;
-        sharedData['imageSrc'] = closestImage.length && closestImage.attr('src');
-        sharedData['text'] = textElem.text();
+
+        sharedData['imageSrc'] = $closestImage.length && $closestImage.attr('src');
+        sharedData['title']    = $titleElem.length && $titleElem.text();
+        sharedData['url']      = $urlElem.length && $urlElem.attr('href');
+        sharedData['text']     = $textElem.length && $textElem.text();
         return sharedData;
     }
 
