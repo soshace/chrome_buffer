@@ -82,6 +82,18 @@
                 "styles/twitter.css"
             ],
             "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "*://*.linkedin.com/*"
+            ],
+            "js": [
+                "scripts/shared/linkedin.js"
+            ],
+            "css": [
+                "styles/linkedin.css"
+            ],
+            "run_at": "document_end"
         }
     ]
 }
