@@ -1,10 +1,3 @@
-/*jslint undef: true, nomen: true, eqeqeq: true, plusplus: true, newcap: true, immed: true, browser: true, devel: true, passfail: false */
-/*global window: false, readConvertLinksToFootnotes: false, readStyle: false, readSize: false, readMargin: false, Typekit: false, ActiveXObject: false */
-
-var dbg = (typeof console !== 'undefined') ? function(s) {
-    console.log("Readability: " + s);
-} : function() {};
-
 /*
  * Readability. An Arc90 Lab Experiment. 
  * Website: http://lab.arc90.com/experiments/readability
@@ -390,7 +383,6 @@ var readability = {
             }
             catch(e) {
                 document.documentElement.appendChild(body);
-                dbg(e);
             }
         }
 
@@ -411,7 +403,6 @@ var readability = {
                     canAccessFrame = true;
                 }
                 catch(eFrames) {
-                    dbg(eFrames);
                 }
 
                 if(frameSize > biggestFrameSize) {
@@ -547,7 +538,6 @@ var readability = {
 
         if (readStyle === "style-athelas") {
             rdbTKCode = "sxt6vzy";
-            dbg("Using Athelas Theme");
 
             rdbTKLink.setAttribute('href','http://typekit.com/?utm_source=readability&utm_medium=affiliate&utm_campaign=athelas');
             rdbTKLink.setAttribute('id','rdb-athelas');
@@ -555,7 +545,6 @@ var readability = {
         }
         if (readStyle === "style-apertura") {
             rdbTKCode = "bae8ybu";
-            dbg("Using Inverse Theme");
 
             rdbTKLink.setAttribute('href','http://typekit.com/?utm_source=readability&utm_medium=affiliate&utm_campaign=inverse');
             rdbTKLink.setAttribute('id','rdb-inverse');
@@ -577,14 +566,11 @@ var readability = {
          * http://getsatisfaction.com/typekit/topics/support_a_pre_and_post_load_callback_function
         **/
         var typekitLoader = function() {
-            dbg("Looking for Typekit.");
             if(typeof Typekit !== "undefined") {
                 try {
-                    dbg("Caught typekit");
                     Typekit.load();
                     clearInterval(window.typekitInterval);
                 } catch(e) {
-                    dbg("Typekit error: " + e);
                 }
             }
         };
@@ -640,7 +626,6 @@ var readability = {
             articleContent.innerHTML = articleContent.innerHTML.replace(/<br[^>]*>\s*<p/gi, '<p');      
         }
         catch (e) {
-            dbg("Cleaning innerHTML of breaks failed. This is an IE strict-block-elements bug. Ignoring.: " + e);
         }
     },
     
@@ -728,7 +713,6 @@ var readability = {
                     )
                 )
                 {
-                    dbg("Removing unlikely candidate - " + unlikelyMatchString);
                     node.parentNode.removeChild(node);
                     nodeIndex-=1;
                     continue;
@@ -751,7 +735,6 @@ var readability = {
                         nodesToScore[nodesToScore.length] = node;
                     }
                     catch(e) {
-                        dbg("Could not alter div to p, probably an IE restriction, reverting back to div.: " + e);
                     }
                 }
                 else
@@ -835,8 +818,6 @@ var readability = {
             **/
             candidates[c].readability.contentScore = candidates[c].readability.contentScore * (1-readability.getLinkDensity(candidates[c]));
 
-            dbg('Candidate: ' + candidates[c] + " (" + candidates[c].className + ":" + candidates[c].id + ") with score " + candidates[c].readability.contentScore);
-
             if(!topCandidate || candidates[c].readability.contentScore > topCandidate.readability.contentScore) {
                 topCandidate = candidates[c]; }
         }
@@ -878,9 +859,6 @@ var readability = {
                 continue;
             }
 
-            dbg("Looking at sibling node: " + siblingNode + " (" + siblingNode.className + ":" + siblingNode.id + ")" + ((typeof siblingNode.readability !== 'undefined') ? (" with score " + siblingNode.readability.contentScore) : ''));
-            dbg("Sibling has score " + (siblingNode.readability ? siblingNode.readability.contentScore : 'Unknown'));
-
             if(siblingNode === topCandidate)
             {
                 append = true;
@@ -913,20 +891,16 @@ var readability = {
             }
 
             if(append) {
-                dbg("Appending node: " + siblingNode);
-
                 var nodeToAppend = null;
                 if(siblingNode.nodeName !== "DIV" && siblingNode.nodeName !== "P") {
                     /* We have a node that isn't a common block level element, like a form or td tag. Turn it into a div so it doesn't get filtered out later by accident. */
                     
-                    dbg("Altering siblingNode of " + siblingNode.nodeName + ' to div.');
                     nodeToAppend = document.createElement("DIV");
                     try {
                         nodeToAppend.id = siblingNode.id;
                         nodeToAppend.innerHTML = siblingNode.innerHTML;
                     }
                     catch(er) {
-                        dbg("Could not alter siblingNode to div, probably an IE restriction, reverting back to original.");
                         nodeToAppend = siblingNode;
                         s-=1;
                         sl-=1;
@@ -1317,7 +1291,6 @@ var readability = {
         if(topPage) {
             var nextHref = topPage.href.replace(/\/$/,'');
 
-            dbg('NEXT PAGE IS ' + nextHref);
             readability.parsedPages[nextHref] = true;
             return nextHref;            
         }
@@ -1413,7 +1386,6 @@ var readability = {
                     var eTag = r.getResponseHeader('ETag');
                     if(eTag) {
                         if(eTag in readability.pageETags) {
-                            dbg("Exact duplicate page found via ETag. Aborting.");
                             articlePage.style.display = 'none';
                             return;
                         } else {
@@ -1448,7 +1420,6 @@ var readability = {
                         content      =  readability.grabArticle(page);
 
                     if(!content) {
-                        dbg("No content found in page to append. Aborting.");
                         return;
                     }
 
@@ -1462,7 +1433,6 @@ var readability = {
                         for(var i=1; i <= readability.curPageNum; i+=1) {
                             var rPage = document.getElementById('readability-page-' + i);
                             if(rPage && rPage.innerHTML.indexOf(firstP.innerHTML) !== -1) {
-                                dbg('Duplicate of page ' + i + ' - skipping.');
                                 articlePage.style.display = 'none';
                                 readability.parsedPages[pageUrl] = true;
                                 return;
@@ -1544,7 +1514,6 @@ var readability = {
             e.innerHTML = e.innerHTML.replace(readability.regexps.killBreaks,'<br />');       
         }
         catch (eBreaks) {
-            dbg("KillBreaks failed - this is an IE bug. Ignoring.: " + eBreaks);
         }
     },
 
@@ -1609,8 +1578,6 @@ var readability = {
             var weight = readability.getClassWeight(tagsList[i]);
             var contentScore = (typeof tagsList[i].readability !== 'undefined') ? tagsList[i].readability.contentScore : 0;
             
-            dbg("Cleaning Conditionally " + tagsList[i] + " (" + tagsList[i].className + ":" + tagsList[i].id + ")" + ((typeof tagsList[i].readability !== 'undefined') ? (" with score " + tagsList[i].readability.contentScore) : ''));
-
             if(weight+contentScore < 0)
             {
                 tagsList[i].parentNode.removeChild(tagsList[i]);

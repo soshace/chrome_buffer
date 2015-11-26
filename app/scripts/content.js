@@ -18,9 +18,7 @@
         titleSelector = [
             'h1',
             'title'
-        ].join(','),
-
-        textSelector = [].join(', ')
+        ].join(',')
         ;
 
 
@@ -36,6 +34,7 @@
             $titleElem = currentPost.find(titleSelector).first()
             ;
 
+        $textElem.find('script').empty();
         sharedData['imageSrc'] = $biggestImage.length && $biggestImage.attr('src');
         sharedData['title'] = $titleElem.length && $titleElem.text();
         sharedData['url'] = location.href;
@@ -46,6 +45,8 @@
     /**
      * Returns image with biggest pixels amount
      * @param $parent
+     * @param minWidth
+     * @param minHeight
      */
     function getBiggestImage($parent, minWidth, minHeight) {
         var $images = $parent.find('img'),
