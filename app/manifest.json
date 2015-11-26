@@ -94,6 +94,18 @@
                 "styles/linkedin.css"
             ],
             "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "*://plus.google.com/*"
+            ],
+            "js": [
+                "scripts/shared/google-plus.js"
+            ],
+            "css": [
+                "styles/google-plus.css"
+            ],
+            "run_at": "document_end"
         }
     ]
 }

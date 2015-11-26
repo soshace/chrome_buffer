@@ -1,0 +1,5 @@
+.buffer-share {
+  display: block;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAyklEQVQ4T7WTDQ3CQAxG3xwgAQcgYRJwwCQgAQlIAAc4YBLAARJwAHlJt5TlCEsua3JZ0p/Xr71bQ6U1lfUsClgDm1D4AJ4ltb8UdMAK6KOoBV7AeQopAXaRbLGgN3ABsn/kCFBqlncAToDfrEDfMY4AFe4FXKPjLTplwAC2SQaoZitEgAXOZpIBE53XDsa0qU9lwlsBJiptSM57slArxWzaDUt0Wfc4c96Wt6L1+RbchZB/Zo7zq/rrJep0B3NsbLboU56jpP5n+gDJlipw1JjbYwAAAABJRU5ErkJggg==') 9px 5px no-repeat !important;
+  width: 15px !important;
+}

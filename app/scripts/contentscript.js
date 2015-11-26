@@ -79,14 +79,13 @@ ChromeBuffer = (function (w) {
                 $titleField.text(data.title);
                 $titleField.show();
 
-                if (data.url) {
-                    sharedData.url = data.url;
-                    $urlField.attr('href', data.url);
-                    $urlField.text(data.url);
+            }
+            if (data.url) {
+                sharedData.url = data.url;
+                $urlField.attr('href', data.url);
+                $urlField.text(data.url);
 
-                    $textField.show();
-                    $urlField.show();
-                }
+                $urlField.show();
             }
             if (data.imageSrc) {
                 sharedData.imageSrc = data.imageSrc;

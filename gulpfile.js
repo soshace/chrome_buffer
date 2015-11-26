@@ -8,7 +8,8 @@ var gulp = require('gulp'),
 
 
 gulp.task('less', function () {
-    return gulp.src(paths.less)
+    return gulp
+        .src(paths.less)
         .pipe(less())
         .pipe(gulp.dest('./app/styles/'))
 });
