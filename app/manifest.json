@@ -49,6 +49,7 @@
             "js": [
                 "bower_components/jquery/dist/jquery.min.js",
                 "scripts/post-storage.js",
+                "scripts/text-grabber.js",
                 "scripts/chrome-buffer.js",
                 "scripts/content.js"
             ],

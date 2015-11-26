@@ -1,5 +1,6 @@
 (function ($) {
-    var sharedData = {
+    var TEXT_LENGTH = 150,
+        sharedData = {
             title: '',
             text: '',
             imageSrc: '',
@@ -31,14 +32,14 @@
 
     function updateSharedData(currentPost) {
         var $biggestImage = getBiggestImage(currentPost),
-            $textElem = currentPost.find(textSelector).first(),
+            $textElem = $(readability.grabArticle(document.body.cloneNode(true))),
             $titleElem = currentPost.find(titleSelector).first()
             ;
-        debugger
+
         sharedData['imageSrc'] = $biggestImage.length && $biggestImage.attr('src');
         sharedData['title'] = $titleElem.length && $titleElem.text();
         sharedData['url'] = location.href;
-        sharedData['text'] = $textElem.length && $textElem.text();
+        sharedData['text'] = $textElem.length && $textElem.text().slice(0, TEXT_LENGTH);
         return sharedData;
     }
 

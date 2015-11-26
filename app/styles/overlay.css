@@ -62,6 +62,7 @@
 .buffer-overlay__share-modal__title {
   display: block;
   float: left;
+  clear: none;
   margin: 20px 0 0;
   font-size: 18px;
   width: auto;
@@ -77,13 +78,13 @@
   font-size: 12px;
   color: #7f7f7f;
   margin: 5px 0;
-  width: 360px;
+  max-width: 440px;
   word-wrap: break-word;
 }
 .buffer-overlay__share-modal__text-content {
   display: block;
   float: left;
   font-size: 14px;
-  width: 360px;
+  max-width: 440px;
   word-wrap: break-word;
 }
