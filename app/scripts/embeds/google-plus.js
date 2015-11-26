@@ -53,17 +53,9 @@
     }
 
     function createGoogleActionButton() {
-        var $action = $('<div></div>'),
-            $span = $('<span></span>'),
-            $icon = $('<span></span>')
-            ;
+        var $action = $('<div></div>');
 
         $action.addClass('buffer-share esw eswd qk Gc');
-        //$span.addClass('ltr');
-        //$icon.addClass('buffer-share-icon');
-        //$span.append($icon);
-        //$action.append($span);
-
         return $action;
     }
 
