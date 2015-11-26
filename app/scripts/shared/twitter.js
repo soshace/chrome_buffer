@@ -1,6 +1,5 @@
 (function ($) {
-    var attached = false,
-        postSelector = '.stream-item-footer .buffer-inserted',
+    var postSelector = '.stream-item-footer .buffer-inserted',
         compareChildSelector = '.ProfileTweet-action--buffer-share',
         sharedData = {
             title: '',
@@ -14,7 +13,7 @@
         ].join(', '),
 
         titleSelector = [
-            '.content .tweet-text'
+            '.tweet-text'
         ].join(','),
 
         textSelector = [
@@ -78,7 +77,7 @@
     }
 
     function onShareBtnClick() {
-        var currentPost = $(this).parents('.original-tweet-container, li[data-item-type="tweet"]').first();
+        var currentPost = $(this).parents('.permalink-tweet-container, .original-tweet-container, li[data-item-type="tweet"]').first();
         updateSharedData(currentPost);
         ChromeBuffer.toggleOverlay(sharedData);
     }
@@ -89,7 +88,7 @@
             $urlElem      = currentPost.find(urlSelector).first(),
             $titleElem    = currentPost.find(titleSelector).first()
             ;
-
+debugger;
         sharedData['imageSrc'] = $closestImage.length && $closestImage.attr('src');
         sharedData['title']    = $titleElem.length && $titleElem.text();
         sharedData['url']      = $urlElem.length && $urlElem.attr('href');
