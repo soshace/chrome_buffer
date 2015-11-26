@@ -88,7 +88,7 @@
             $urlElem      = currentPost.find(urlSelector).first(),
             $titleElem    = currentPost.find(titleSelector).first()
             ;
-debugger;
+
         sharedData['imageSrc'] = $closestImage.length && $closestImage.attr('src');
         sharedData['title']    = $titleElem.length && $titleElem.text();
         sharedData['url']      = $urlElem.length && $urlElem.attr('href');
