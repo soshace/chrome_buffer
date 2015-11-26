@@ -9,7 +9,7 @@
     },
     "default_locale": "en",
     "background": {
-        "scripts": []
+        "page": "background.html"
     },
     "browser_action": {
         "default_icon": {
@@ -49,7 +49,7 @@
             "js": [
                 "bower_components/jquery/dist/jquery.min.js",
                 "scripts/post-storage.js",
-                "scripts/contentscript.js"
+                "scripts/chrome-buffer.js"
             ],
             "run_at": "document_end",
             "all_frames": false
@@ -60,7 +60,7 @@
             ],
             "js": [
                 "bower_components/jquery/dist/jquery.min.js",
-                "scripts/shared/facebook.js"
+                "scripts/embeds/facebook.js"
             ],
             "css": [
                 "styles/overlay.css",
@@ -76,7 +76,7 @@
                 "*://tweetdeck.twitter.com/*"
             ],
             "js": [
-                "scripts/shared/twitter.js"
+                "scripts/embeds/twitter.js"
             ],
             "css": [
                 "styles/twitter.css"
@@ -88,7 +88,7 @@
                 "*://*.linkedin.com/*"
             ],
             "js": [
-                "scripts/shared/linkedin.js"
+                "scripts/embeds/linkedin.js"
             ],
             "css": [
                 "styles/linkedin.css"
@@ -100,7 +100,7 @@
                 "*://plus.google.com/*"
             ],
             "js": [
-                "scripts/shared/google-plus.js"
+                "scripts/embeds/google-plus.js"
             ],
             "css": [
                 "styles/google-plus.css"
