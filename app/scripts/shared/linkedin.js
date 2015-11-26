@@ -82,5 +82,5 @@
         return sharedData;
     }
 
-})($);
+})(jQuery);
 

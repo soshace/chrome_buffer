@@ -97,4 +97,4 @@
         return sharedData;
     }
 
-})($);
+})(jQuery);
