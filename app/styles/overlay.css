@@ -4,9 +4,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: 99999;
 }
-.buffer-overlay .shadow {
+.buffer-overlay__shadow {
   position: absolute;
   top: 0;
   left: 0;
@@ -15,7 +15,7 @@
   height: 100%;
   background-color: black;
 }
-.buffer-overlay .share-modal {
+.buffer-overlay__share-modal {
   position: absolute;
   display: block;
   width: 600px;
@@ -27,7 +27,7 @@
   padding: 20px;
   background-color: white;
 }
-.buffer-overlay .share-modal textarea {
+.buffer-overlay__share-modal textarea {
   box-sizing: border-box;
   width: 100%;
   height: 74px;
@@ -43,7 +43,7 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.buffer-overlay .share-modal button {
+.buffer-overlay__share-modal button {
   display: block;
   width: 200px;
   height: 40px;
@@ -52,14 +52,14 @@
   border-color: #007bd2;
   border-radius: 5px;
 }
-.buffer-overlay .share-modal .thumbnail {
+.buffer-overlay__share-modal__thumbnail {
   float: left;
   margin: 20px 20px 20px 0;
   height: 100px;
   width: 100px;
   max-width: 300px;
 }
-.buffer-overlay .share-modal .title {
+.buffer-overlay__share-modal__title {
   display: block;
   float: left;
   margin: 20px 0 0;
@@ -68,7 +68,7 @@
   max-width: 480px;
   word-wrap: break-word;
 }
-.buffer-overlay .share-modal .url {
+.buffer-overlay__share-modal__url {
   display: block;
   float: left;
   text-overflow: ellipsis;
@@ -80,7 +80,7 @@
   width: 360px;
   word-wrap: break-word;
 }
-.buffer-overlay .share-modal .text-content {
+.buffer-overlay__share-modal__text-content {
   display: block;
   float: left;
   font-size: 14px;

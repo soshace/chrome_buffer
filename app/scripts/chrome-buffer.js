@@ -21,15 +21,15 @@ ChromeBuffer = (function (w) {
 
         init: function () {
             $parent = $('<div class="buffer-overlay" style="display: none"></div>');
-            $modal = $('<div class="share-modal"></div>');
-            $shadow = $('<div class="shadow"></div>');
+            $modal = $('<div class="buffer-overlay__share-modal"></div>');
+            $shadow = $('<div class="buffer-overlay__shadow"></div>');
             $commentField = $('<textarea></textarea>');
             $submitBtn = $('<button type="submit">Share</button>');
 
-            $imageBox = $('<img class="thumbnail"/>');
-            $titleField = $('<h3 class="title"></h3>');
-            $textField = $('<div class="text-content"></div>');
-            $urlField = $('<a target="_blank" class="url"></a>');
+            $imageBox = $('<img class="buffer-overlay__share-modal__thumbnail"/>');
+            $titleField = $('<h3 class="buffer-overlay__share-modal__title"></h3>');
+            $textField = $('<div class="buffer-overlay__share-modal__text-content"></div>');
+            $urlField = $('<a target="_blank" class="buffer-overlay__share-modal__url"></a>');
 
             $parent.appendTo($('body'));
             $parent.append($shadow);
