@@ -66,8 +66,9 @@
   margin: 20px 0 0;
   font-size: 18px;
   width: auto;
-  max-width: 480px;
+  max-width: 440px;
   word-wrap: break-word;
+  text-align: left;
 }
 .buffer-overlay__share-modal__url {
   display: block;
@@ -77,14 +78,17 @@
   overflow: hidden;
   font-size: 12px;
   color: #7f7f7f;
-  margin: 5px 0;
+  margin: 5px 0 0;
   max-width: 440px;
   word-wrap: break-word;
+  text-align: left;
 }
 .buffer-overlay__share-modal__text-content {
   display: block;
   float: left;
+  margin: 20px 0 0;
   font-size: 14px;
   max-width: 440px;
   word-wrap: break-word;
+  text-align: left;
 }
