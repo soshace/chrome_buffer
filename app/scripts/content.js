@@ -9,7 +9,7 @@
         },
 
         postSelector = [
-            'body'
+            'html'
             //'.page-content',
             //'.content',
             //'article'
@@ -19,7 +19,7 @@
         titleSelector = [
             'h1',
             'title'
-        ].join(',')
+        ].join(', ')
         ;
 
 
