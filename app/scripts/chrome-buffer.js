@@ -27,8 +27,8 @@ ChromeBuffer = (function (w) {
             $submitBtn = $('<button type="submit">Share</button>');
 
             $imageBox = $('<img class="buffer-overlay__share-modal__thumbnail"/>');
-            $titleField = $('<h3 class="buffer-overlay__share-modal__title"></h3>');
-            $textField = $('<div class="buffer-overlay__share-modal__text-content"></div>');
+            $titleField = $('<h3 class="buffer-overlay__share-modal__title" contenteditable="true" data-field="title"></h3>');
+            $textField = $('<div class="buffer-overlay__share-modal__text-content" contenteditable="true" data-field="text"></div>');
             $urlField = $('<a target="_blank" class="buffer-overlay__share-modal__url"></a>');
 
             $parent.appendTo($('body'));
@@ -42,8 +42,11 @@ ChromeBuffer = (function (w) {
             $modal.append($urlField);
             $modal.append($textField);
 
+            $titleField.blur(this._onEditableBlur);
+            $textField.blur(this._onEditableBlur);
+
             $submitBtn.click(this.addPost);
-            $shadow.click(closeParent);
+            $shadow.click(this.closeParent);
         },
 
         toggleOverlay: function (data) {
@@ -98,19 +101,24 @@ ChromeBuffer = (function (w) {
                 $textField.show();
             }
 
+            sharedData.service = data.service;
+
         },
 
         addPost: function () {
             sharedData.comment = $commentField.val();
-            PostStorage.push(sharedData, closeParent);
+            sharedData.date = JSON.stringify(new Date());
+            PostStorage.push(sharedData, this.closeParent);
+        },
+
+        closeParent: function () {
+            $parent.hide()
+        },
+
+        _onEditableBlur: function () {
+            var field = $(this).data('field');
+            sharedData[field] = this.innerText;
         }
-
     };
-
-    function closeParent() {
-        $parent.hide()
-    }
-
-
 })(window);
 

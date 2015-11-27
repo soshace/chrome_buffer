@@ -68,6 +68,12 @@
   width: 440px;
   word-wrap: break-word;
   text-align: left;
+  outline: none;
+}
+.buffer-overlay__share-modal__title:hover,
+.buffer-overlay__share-modal__title:focus,
+.buffer-overlay__share-modal__title:active {
+  background-color: #fff9ea;
 }
 .buffer-overlay__share-modal__url {
   display: block;
@@ -90,4 +96,10 @@
   max-width: 440px;
   word-wrap: break-word;
   text-align: left;
+  outline: none;
+}
+.buffer-overlay__share-modal__text-content:hover,
+.buffer-overlay__share-modal__text-content:focus,
+.buffer-overlay__share-modal__text-content:active {
+  background-color: #fff9ea;
 }
