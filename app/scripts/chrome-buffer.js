@@ -107,7 +107,7 @@ ChromeBuffer = (function (w) {
 
         addPost: function () {
             sharedData.comment = $commentField.val();
-            sharedData.date = JSON.stringify(new Date());
+            sharedData.date = (new Date()).toString();
             PostStorage.push(sharedData, this.closeParent);
         },
 

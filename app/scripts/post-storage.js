@@ -1,4 +1,4 @@
-PostStorage = (function (w) {
+PostStorage = (function ($, w) {
     "use strict";
     var syncStorage = chrome.storage.sync,
         storageName = 'buffer_posts';
@@ -17,7 +17,10 @@ PostStorage = (function (w) {
                     currentPosts.push(post)
                 }
                 res[storageName] = JSON.stringify(currentPosts);
-                syncStorage.set(res, cb);
+
+                savePost(post, function () {
+                    syncStorage.set(res, cb);
+                });
             });
         },
 
@@ -27,6 +30,20 @@ PostStorage = (function (w) {
                 cb(currentPosts);
             });
         }
+    };
+
+    function savePost(post, successCb) {
+        var protocol = location.protocol,
+            port = protocol == 'http' ? 8080 : 8081,
+            url = '//127.0.0.1:' + port + '/posts'
+            ;
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            data: JSON.stringify(post),
+            contentType: 'application/json',
+            success: successCb
+        });
     }
 
-})(window);
+})(jQuery, window);
