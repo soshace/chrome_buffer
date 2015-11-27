@@ -1,5 +1,6 @@
 (function ($) {
-    var attached = false,
+    var SERVICE_NAME = 'linkedin',
+        attached = false,
         postSelector = '.feed-update.channel-recommend-article, .feed-update.member-share-article',
         compareChildSelector = 'li .buffer-share',
         sharedData = {
@@ -79,6 +80,7 @@
         sharedData['title']    = $titleElem.length && $titleElem.text();
         sharedData['url']      = $urlElem.length && $urlElem.attr('href');
         sharedData['text']     = $textElem.length && $textElem.text();
+        sharedData['service']  = SERVICE_NAME;
         return sharedData;
     }
 

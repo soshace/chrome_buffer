@@ -1,5 +1,6 @@
 (function ($) {
-    var postSelector = '.Yp.yt.Xa',
+    var SERVICE_NAME = 'google-plus',
+        postSelector = '.Yp.yt.Xa',
         compareChildSelector = '.buffer-share',
         sharedData = {
             title: '',
@@ -76,6 +77,7 @@
         sharedData['title']    = $titleElem.length && $titleElem.text();
         sharedData['url']      = $urlElem.length && $urlElem.attr('href');
         sharedData['text']     = $textElem.length && $textElem.text();
+        sharedData['service']  = SERVICE_NAME;
         return sharedData;
     }
 

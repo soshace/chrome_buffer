@@ -1,5 +1,6 @@
 (function ($) {
-    var attached = false,
+    var SERVICE_NAME = 'facebook',
+        attached = false,
         sharedData = {
             title: '',
             text: '',
@@ -75,6 +76,7 @@
         sharedData['title']    = $titleElem.length && $titleElem.text();
         sharedData['url']      = $urlElem.length && $urlElem.attr('href');
         sharedData['text']     = $textElem.length && $textElem.text();
+        sharedData['service']  = SERVICE_NAME;
         return sharedData;
     }
 

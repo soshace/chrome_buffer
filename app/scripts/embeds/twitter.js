@@ -1,5 +1,6 @@
 (function ($) {
-    var postSelector = '.stream-item-footer .buffer-inserted',
+    var SERVICE_NAME = 'twitter',
+        postSelector = '.stream-item-footer .buffer-inserted',
         compareChildSelector = '.ProfileTweet-action--buffer-share',
         sharedData = {
             title: '',
@@ -93,6 +94,7 @@
         sharedData['title']    = $titleElem.length && $titleElem.text();
         sharedData['url']      = $urlElem.length && $urlElem.attr('href');
         sharedData['text']     = $textElem.length && $textElem.text();
+        sharedData['service']  = SERVICE_NAME;
         return sharedData;
     }
 
