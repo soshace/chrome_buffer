@@ -45,7 +45,7 @@ ChromeBuffer = (function (w) {
             $titleField.blur(this._onEditableBlur);
             $textField.blur(this._onEditableBlur);
 
-            $submitBtn.click(this.addPost);
+            $submitBtn.click(this.addPost.bind(this));
             $shadow.click(this.closeParent);
         },
 
