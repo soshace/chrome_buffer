@@ -1,5 +1,7 @@
 (function ($) {
     var SERVICE_NAME = 'all',
+        MIN_IMAGE_WIDTH = 50,
+        MIN_IMAGE_HEIGHT = 50,
         sharedData = {
             title: '',
             text: '',
@@ -47,8 +49,8 @@
         if ($biggestImage.length) {
             sharedData['imageSrc'] = $biggestImage.attr('href')
         } else {
-            $biggestImage = getBiggestImage(currentPost);
-            sharedData['imageSrc'] = $biggestImage.length && $biggestImage[0].src;
+            $biggestImage = getBiggestImage(currentPost, MIN_IMAGE_WIDTH, MIN_IMAGE_HEIGHT);
+            sharedData['imageSrc'] = $biggestImage && $biggestImage[0].src;
         }
         return sharedData;
     }
