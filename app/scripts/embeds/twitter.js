@@ -5,11 +5,11 @@
         sharedData = {
             title: '',
             text: '',
-            imageSources: '',
+            imageSources: [],
             url: ''
         },
 
-        imageSelector =[
+        imageSelector = [
             '.OldMedia [data-image-url] img'
         ].join(', '),
 
@@ -17,11 +17,9 @@
             '.tweet-text'
         ].join(','),
 
-        textSelector = [
+        textSelector = [].join(', '),
 
-        ].join(', '),
-
-        urlSelector =  [
+        urlSelector = [
             '[data-expanded-url]'
         ].join(', ')
         ;
@@ -56,7 +54,7 @@
             $circle = $('<span></span>'),
             $circleFill = $('<span></span>'),
             $text = $('<span></span>')
-        ;
+            ;
 
         $action.attr('class', 'ProfileTweet-action ProfileTweet-action--buffer-share js-toggleState');
         $button.attr('class', 'ProfileTweet-actionButton js-actionButton');
@@ -84,18 +82,28 @@
     }
 
     function updateSharedData(currentPost) {
-        var $closestImage = currentPost.find(imageSelector).first(),
-            $textElem     = currentPost.find(textSelector).first(),
-            $urlElem      = currentPost.find(urlSelector).first(),
-            $titleElem    = currentPost.find(titleSelector).first()
+        var $textElem = currentPost.find(textSelector).first(),
+            $urlElem = currentPost.find(urlSelector).first(),
+            $titleElem = currentPost.find(titleSelector).first()
             ;
 
-        $closestImage.length &&  sharedData['imageSources'].push($closestImage.attr('src'));
-        sharedData['title']    = $titleElem.length && $titleElem.text();
-        sharedData['url']      = $urlElem.length && $urlElem.attr('href');
-        sharedData['text']     = $textElem.length && $textElem.text();
-        sharedData['service']  = SERVICE_NAME;
+        sharedData['imageSources'] = getImageSources(imageSelector, currentPost);
+        sharedData['title'] = $titleElem.length && $titleElem.text();
+        sharedData['url'] = $urlElem.length && $urlElem.attr('href');
+        sharedData['text'] = $textElem.length && $textElem.text();
+        sharedData['service'] = SERVICE_NAME;
         return sharedData;
+    }
+
+    function getImageSources(selector, $parent) {
+        var $images = $parent.find(selector),
+            sources = []
+            ;
+        $images.each(function (index, $img) {
+            sources.push($($img)[0].src)
+        });
+
+        return sources;
     }
 
 })(jQuery);

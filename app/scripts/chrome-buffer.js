@@ -95,6 +95,8 @@ ChromeBuffer = (function (w) {
             for (var key in sharedData) {
                 sharedData[key] = '';
             }
+            sharedData['imageSources'] = [];
+
             $titleField.hide();
             $textField.hide();
             $urlField.hide();
@@ -118,6 +120,7 @@ ChromeBuffer = (function (w) {
 
                 $urlField.show();
             }
+            $thumbnail.empty();
             if (data.imageSources.length) {
                 sharedData.imageSources = data.imageSources;
                 this.appendThumbnailImages(data.imageSources, $thumbnail);
