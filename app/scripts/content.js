@@ -18,6 +18,10 @@
         titleSelector = [
             'h1',
             'title'
+        ].join(', '),
+
+        imageHrefSelector = [
+            'link[itemprop="thumbnailUrl"]'
         ].join(', ')
         ;
 
@@ -29,17 +33,23 @@
     }
 
     function updateSharedData(currentPost) {
-        var $biggestImage = getBiggestImage(currentPost),
+        var $biggestImage = currentPost.find(imageHrefSelector).first(),
             $textElem = $(readability.grabArticle(document.body.cloneNode(true))),
             $titleElem = currentPost.find(titleSelector).first()
             ;
 
         $textElem.find('script, style').empty();
-        sharedData['imageSrc'] = $biggestImage.length && $biggestImage[0].src;
         sharedData['title'] = $titleElem.length && $titleElem.text();
         sharedData['url'] = location.href;
         sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service']  = SERVICE_NAME;
+
+        if ($biggestImage.length) {
+            sharedData['imageSrc'] = $biggestImage.attr('href')
+        } else {
+            $biggestImage = getBiggestImage(currentPost);
+            sharedData['imageSrc'] = $biggestImage.length && $biggestImage[0].src;
+        }
         return sharedData;
     }
 
