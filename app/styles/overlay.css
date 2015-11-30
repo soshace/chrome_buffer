@@ -38,7 +38,7 @@
   min-height: 0;
   max-height: none;
   padding: 14px 19px;
-  border: 1px solid #d4dce3;
+  border: 1px solid #D4DCE3;
   border-radius: 3px;
   color: #323b43;
   font-weight: 400;
@@ -65,13 +65,34 @@
 .buffer-overlay__share-modal button:hover {
   background: #2d99ec;
 }
+.buffer-overlay__share-modal__close {
+  position: absolute;
+  top: -17px;
+  right: -17px;
+  background-color: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  line-height: 1.8;
+  border: 1px solid #D4DCE3;
+}
+.buffer-overlay__share-modal__close:hover {
+  cursor: pointer;
+}
+.buffer-overlay__share-modal__close span {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: monospace;
+}
 .buffer-overlay__share-modal__details {
   overflow: auto;
+  margin-top: 20px;
 }
 .buffer-overlay__share-modal__details .thumbnail {
   position: relative;
   float: left;
-  margin: 20px 20px 20px 0;
+  margin: 0 20px 20px 0;
   max-width: 300px;
   border: 1px solid #ced7df;
   width: 240px;
@@ -93,7 +114,7 @@
   float: left;
   clear: none;
   padding: 0;
-  margin: 20px 0 0;
+  margin: 0;
   width: 400px;
   word-wrap: break-word;
   text-align: left;
