@@ -1,6 +1,5 @@
 (function ($) {
     var SERVICE_NAME = 'all',
-        TEXT_LENGTH = 150,
         sharedData = {
             title: '',
             text: '',
@@ -39,7 +38,7 @@
         sharedData['imageSrc'] = $biggestImage.length && $biggestImage[0].src;
         sharedData['title'] = $titleElem.length && $titleElem.text();
         sharedData['url'] = location.href;
-        sharedData['text'] = $textElem.length && $textElem.text().slice(0, TEXT_LENGTH);
+        sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service']  = SERVICE_NAME;
         return sharedData;
     }

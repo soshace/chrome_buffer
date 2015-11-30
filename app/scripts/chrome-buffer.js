@@ -20,7 +20,8 @@ ChromeBuffer = (function (w) {
             text: '',
             url: '',
             comment: ''
-        }
+        },
+        TEXT_LENGTH = 150
         ;
     return {
 
@@ -127,7 +128,7 @@ ChromeBuffer = (function (w) {
             }
             if (data.text) {
                 sharedData.text = data.text;
-                $textField.text(data.text);
+                $textField.text(data.text.slice(0, TEXT_LENGTH));
                 $textField.show();
             }
 
