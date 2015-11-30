@@ -5,6 +5,10 @@
   width: 100%;
   height: 100%;
   z-index: 99999;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
 }
 .buffer-overlay__shadow {
   position: absolute;
@@ -18,8 +22,8 @@
 .buffer-overlay__share-modal {
   position: absolute;
   display: block;
-  width: 600px;
-  height: 500px;
+  width: 700px;
+  height: 400px;
   left: 50%;
   top: 50%;
   margin-left: -300px;
@@ -48,58 +52,85 @@
   width: 200px;
   height: 40px;
   margin: 20px 0;
+  outline: none;
+  padding-right: 22px;
   background: #168eea;
-  border-color: #007bd2;
-  border-radius: 5px;
+  border: 1px solid #137dcf;
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0);
+  font-size: 14px;
+  font-weight: 400;
+  color: white;
 }
-.buffer-overlay__share-modal__thumbnail {
+.buffer-overlay__share-modal button:hover {
+  background: #2d99ec;
+}
+.buffer-overlay__share-modal__details {
+  overflow: auto;
+}
+.buffer-overlay__share-modal__details .thumbnail {
+  position: relative;
   float: left;
   margin: 20px 20px 20px 0;
-  height: 100px;
-  width: 100px;
   max-width: 300px;
+  border: 1px solid #ced7df;
+  width: 240px;
+  height: 120px;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 3px;
 }
-.buffer-overlay__share-modal__title {
+.buffer-overlay__share-modal__details .thumbnail img {
+  position: absolute;
+  display: table-cell;
+  vertical-align: middle;
+  max-width: 100%;
+  text-align: center;
+}
+.buffer-overlay__share-modal__details .title {
   display: block;
   float: left;
   clear: none;
+  padding: 0;
   margin: 20px 0 0;
-  font-size: 18px;
-  width: 440px;
+  width: 400px;
   word-wrap: break-word;
   text-align: left;
   outline: none;
+  color: #323b43;
 }
-.buffer-overlay__share-modal__title:hover,
-.buffer-overlay__share-modal__title:focus,
-.buffer-overlay__share-modal__title:active {
+.buffer-overlay__share-modal__details .title:hover,
+.buffer-overlay__share-modal__details .title:focus,
+.buffer-overlay__share-modal__details .title:active {
   background-color: #fff9ea;
 }
-.buffer-overlay__share-modal__url {
+.buffer-overlay__share-modal__details .url {
   display: block;
   float: left;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   font-size: 12px;
-  color: #7f7f7f;
+  color: #93989C;
   margin: 5px 0 0;
-  max-width: 440px;
+  max-width: 400px;
   word-wrap: break-word;
   text-align: left;
 }
-.buffer-overlay__share-modal__text-content {
+.buffer-overlay__share-modal__details .text-content {
   display: block;
   float: left;
   margin: 20px 0 0;
-  font-size: 14px;
-  max-width: 440px;
+  max-width: 400px;
   word-wrap: break-word;
   text-align: left;
   outline: none;
+  font-size: 12px;
+  color: #59626a;
+  padding: 5px;
 }
-.buffer-overlay__share-modal__text-content:hover,
-.buffer-overlay__share-modal__text-content:focus,
-.buffer-overlay__share-modal__text-content:active {
+.buffer-overlay__share-modal__details .text-content:hover,
+.buffer-overlay__share-modal__details .text-content:focus,
+.buffer-overlay__share-modal__details .text-content:active {
   background-color: #fff9ea;
 }

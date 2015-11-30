@@ -5,10 +5,14 @@ ChromeBuffer = (function (w) {
         $shadow,
         $commentField,
         $submitBtn,
+
+        $detailsField,
+        $thumbnail,
         $imageBox,
         $titleField,
         $textField,
         $urlField,
+
         sharedData = {
             title: '',
             imageSrc: '',
@@ -26,21 +30,25 @@ ChromeBuffer = (function (w) {
             $commentField = $('<textarea></textarea>');
             $submitBtn = $('<button type="submit">Share</button>');
 
-            $imageBox = $('<img class="buffer-overlay__share-modal__thumbnail"/>');
-            $titleField = $('<h3 class="buffer-overlay__share-modal__title" contenteditable="true" data-field="title"></h3>');
-            $textField = $('<div class="buffer-overlay__share-modal__text-content" contenteditable="true" data-field="text"></div>');
-            $urlField = $('<a target="_blank" class="buffer-overlay__share-modal__url"></a>');
+            $detailsField = $('<div class="buffer-overlay__share-modal__details"></div>');
+            $thumbnail = $('<div class="thumbnail"></div>')
+            $imageBox = $('<img />');
+            $titleField = $('<h3 class="title" contenteditable="true" data-field="title"></h3>');
+            $textField = $('<div class="text-content" contenteditable="true" data-field="text"></div>');
+            $urlField = $('<a target="_blank" class="url"></a>');
+
+            $detailsField.append($thumbnail);
+            $thumbnail.append($imageBox);
+            $detailsField.append($titleField);
+            $detailsField.append($urlField);
+            $detailsField.append($textField);
 
             $parent.appendTo($('body'));
             $parent.append($shadow);
             $parent.append($modal);
             $modal.append($commentField);
+            $modal.append($detailsField);
             $modal.append($submitBtn);
-
-            $modal.append($imageBox);
-            $modal.append($titleField);
-            $modal.append($urlField);
-            $modal.append($textField);
 
             $titleField.blur(this._onEditableBlur);
             $textField.blur(this._onEditableBlur);

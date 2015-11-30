@@ -1,4 +1,7 @@
-@link-color: #7f7f7f;
+@link-color: #93989C;
+@button-color: #168eea;
+@button-border-color: #137dcf;
+@button-hover-color: #2d99ec;
 
 .buffer-overlay {
     position: fixed;
@@ -7,6 +10,10 @@
     width: 100%;
     height: 100%;
     z-index: 99999;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
 
     &__shadow {
         position: absolute;
@@ -21,8 +28,8 @@
     &__share-modal {
         position: absolute;
         display: block;
-        width: 600px;
-        height: 500px;
+        width: 700px;
+        height: 400px;
         left: 50%;
         top: 50%;
         margin-left: -300px;
@@ -52,66 +59,97 @@
             width: 200px;
             height: 40px;
             margin: 20px 0;
-            background: #168eea;
-            border-color: #007bd2;
-            border-radius: 5px;
-        }
-
-        &__thumbnail {
-            float: left;
-            margin: 20px 20px 20px 0;
-            height: 100px;
-            width: 100px;
-            max-width: 300px;
-        }
-
-        &__title {
-            display: block;
-            float: left;
-            clear: none;
-            margin: 20px 0 0;
-            font-size: 18px;
-            width: 440px;
-            word-wrap: break-word;
-            text-align: left;
             outline: none;
+            padding-right: 22px;
+            background: @button-color;
+            border: 1px solid @button-border-color;
+            border-radius: 20px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0);
+            font-size: 14px;
+            font-weight: 400;
+            color: white;
 
-            &:hover,
-            &:focus,
-            &:active {
-                background-color: #fff9ea;
+            &:hover {
+                background: @button-hover-color;
             }
         }
 
-        &__url {
-            display: block;
-            float: left;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            font-size: 12px;
-            color: @link-color;
-            margin: 5px 0 0;
-            max-width: 440px;
-            word-wrap: break-word;
-            text-align: left;
-        }
+        &__details {
+            overflow: auto;
 
-        &__text-content {
-            display: block;
-            float: left;
-            margin: 20px 0 0;
-            font-size: 14px;
-            max-width: 440px;
-            word-wrap: break-word;
-            text-align: left;
-            outline: none;
+            .thumbnail {
+                position: relative;
+                float: left;
+                margin: 20px 20px 20px 0;
+                max-width: 300px;
+                border: 1px solid #ced7df;
+                width: 240px;
+                height: 120px;
+                background-color: #fff;
+                overflow: hidden;
+                border-radius: 3px;
 
-            &:hover,
-            &:focus,
-            &:active {
-                background-color: #fff9ea;
+                img {
+                    position: absolute;
+                    display: table-cell;
+                    vertical-align: middle;
+                    max-width: 100%;
+                    text-align: center;
+                }
+            }
+
+            .title {
+                display: block;
+                float: left;
+                clear: none;
+                padding: 0;
+                margin: 20px 0 0;
+                width: 400px;
+                word-wrap: break-word;
+                text-align: left;
+                outline: none;
+                color: #323b43;
+
+                &:hover,
+                &:focus,
+                &:active {
+                    background-color: #fff9ea;
+                }
+            }
+
+            .url {
+                display: block;
+                float: left;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                font-size: 12px;
+                color: @link-color;
+                margin: 5px 0 0;
+                max-width: 400px;
+                word-wrap: break-word;
+                text-align: left;
+            }
+
+            .text-content {
+                display: block;
+                float: left;
+                margin: 20px 0 0;
+                max-width: 400px;
+                word-wrap: break-word;
+                text-align: left;
+                outline: none;
+                font-size: 12px;
+                color: #59626a;
+                padding: 5px;
+
+                &:hover,
+                &:focus,
+                &:active {
+                    background-color: #fff9ea;
+                }
             }
         }
     }
 }
+
