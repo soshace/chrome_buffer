@@ -1,11 +1,11 @@
 (function ($) {
     var SERVICE_NAME = 'all',
-        MIN_IMAGE_WIDTH = 50,
-        MIN_IMAGE_HEIGHT = 50,
+        MIN_IMAGE_WIDTH = 150,
+        MIN_IMAGE_HEIGHT = 150,
         sharedData = {
             title: '',
             text: '',
-            imageSrc: '',
+            imageSources: [],
             url: ''
         },
 
@@ -22,7 +22,7 @@
             'title'
         ].join(', '),
 
-        imageHrefSelector = [
+        thumbnailsSelector = [
             'link[itemprop="thumbnailUrl"]'
         ].join(', ')
         ;
@@ -35,9 +35,10 @@
     }
 
     function updateSharedData(currentPost) {
-        var $biggestImage = currentPost.find(imageHrefSelector).first(),
+        var $bigImages = currentPost.find(thumbnailsSelector).first(),
             $textElem = $(readability.grabArticle(document.body.cloneNode(true))),
-            $titleElem = currentPost.find(titleSelector).first()
+            $titleElem = currentPost.find(titleSelector).first(),
+            imageSources
             ;
 
         $textElem.find('script, style').empty();
@@ -46,11 +47,11 @@
         sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service']  = SERVICE_NAME;
 
-        if ($biggestImage.length) {
-            sharedData['imageSrc'] = $biggestImage.attr('href')
+        if ($bigImages.length) {
+            sharedData['imageSources'].push($bigImages.attr('href'));
         } else {
-            $biggestImage = getBiggestImage(currentPost, MIN_IMAGE_WIDTH, MIN_IMAGE_HEIGHT);
-            sharedData['imageSrc'] = $biggestImage && $biggestImage[0].src;
+            imageSources = getBigImagesSources(currentPost, MIN_IMAGE_WIDTH, MIN_IMAGE_HEIGHT);
+            sharedData['imageSources'] = imageSources;
         }
         return sharedData;
     }
@@ -61,23 +62,23 @@
      * @param minWidth
      * @param minHeight
      */
-    function getBiggestImage($parent, minWidth, minHeight) {
+    function getBigImagesSources($parent, minWidth, minHeight) {
         var $images = $parent.find('img'),
-            $biggestImage,
-            biggestPixelsAmount = (minWidth && minHeight) ? minWidth * minHeight : 0,
+            sources = [],
             pixelsAmount
             ;
         $images.each(function (index, $img) {
             $img = $($img);
             pixelsAmount = $img.width() * $img.height();
 
-            if (pixelsAmount > biggestPixelsAmount) {
-                biggestPixelsAmount = pixelsAmount;
-                $biggestImage = $img;
+            if ($img.width() > minWidth &&
+                $img.height() > minHeight &&
+                $img[0].src) {
+                sources.push($img[0].src)
             }
         });
 
-        return $biggestImage;
+        return sources;
     }
 
     chrome.extension.onMessage.addListener(function (msg, sender, sendResponse) {

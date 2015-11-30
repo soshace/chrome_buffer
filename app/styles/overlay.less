@@ -55,7 +55,7 @@
             box-shadow: none;
         }
 
-        button {
+        > button {
             display: block;
             width: 200px;
             height: 40px;
@@ -114,14 +114,14 @@
                 overflow: hidden;
                 border-radius: 3px;
 
-                img {
-                    position: absolute;
-                    display: table-cell;
-                    vertical-align: middle;
-                    width: 100%;
-                    max-width: 100%;
-                    text-align: center;
-                }
+                //img {
+                //    position: absolute;
+                //    display: table-cell;
+                //    vertical-align: middle;
+                //    width: 100%;
+                //    max-width: 100%;
+                //    text-align: center;
+                //}
             }
 
             .title {
@@ -179,3 +179,34 @@
     }
 }
 
+// Slick styles
+.slick-slider {
+    .slick-track {
+        height: 120px;
+    }
+    .slick-arrow {
+        background-color: white !important;
+        opacity: 0.2;
+        -webkit-transition: opacity 0.3s;
+        transition: opacity 0.3s;
+        height: 100%;
+        width: 20%;
+        z-index: 1;
+
+        &:before {
+            color: black
+        }
+
+        &:hover {
+            opacity: 0.4;
+        }
+
+        &.slick-prev {
+            left: 0;
+        }
+
+        &.slick-next {
+            right: 0;
+        }
+    }
+}

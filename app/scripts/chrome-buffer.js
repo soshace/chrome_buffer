@@ -16,7 +16,7 @@ ChromeBuffer = (function (w) {
 
         sharedData = {
             title: '',
-            imageSrc: '',
+            imageSources: [],
             text: '',
             url: '',
             comment: ''
@@ -53,13 +53,11 @@ ChromeBuffer = (function (w) {
 
             $detailsField = $('<div class="buffer-overlay__share-modal__details"></div>');
             $thumbnail = $('<div class="thumbnail"></div>');
-            $imageBox = $('<img />');
             $titleField = $('<h3 class="title" contenteditable="true" data-field="title"></h3>');
             $textField = $('<div class="text-content" contenteditable="true" data-field="text"></div>');
             $urlField = $('<a target="_blank" class="url"></a>');
 
             $detailsField.append($thumbnail);
-            $thumbnail.append($imageBox);
             $detailsField.append($titleField);
             $detailsField.append($urlField);
             $detailsField.append($textField);
@@ -98,7 +96,6 @@ ChromeBuffer = (function (w) {
                 sharedData[key] = '';
             }
             $titleField.hide();
-            $imageBox.hide();
             $textField.hide();
             $urlField.hide();
 
@@ -121,10 +118,9 @@ ChromeBuffer = (function (w) {
 
                 $urlField.show();
             }
-            if (data.imageSrc) {
-                sharedData.imageSrc = data.imageSrc;
-                $imageBox.attr('src', data.imageSrc);
-                $imageBox.show();
+            if (data.imageSources.length) {
+                sharedData.imageSources = data.imageSources;
+                this.appendThumbnailImages(data.imageSources, $thumbnail);
             }
             if (data.text) {
                 sharedData.text = data.text;
@@ -134,6 +130,32 @@ ChromeBuffer = (function (w) {
 
             sharedData.service = data.service;
 
+        },
+
+        appendThumbnailImages: function (sources, $parent) {
+            var $img,
+                $div = $('<div></div>')
+                ;
+
+            if (!(sources instanceof Array)) {
+                sources = [sources];
+            }
+            sources.forEach(function(src) {
+                $img = $('<img />');
+                $img.attr('src', src);
+                $img.show();
+                $div.append($img);
+            });
+
+            $parent.append($div);
+            setTimeout(function () {
+                $div.slick({
+                    infinite: true,
+                    speed: 500,
+                    fade: true,
+                    cssEase: 'linear'
+                });
+            }, 0)
         },
 
         addPost: function () {

@@ -6,7 +6,7 @@
         sharedData = {
             title: '',
             text: '',
-            imageSrc: '',
+            imageSources: '',
             url: ''
         },
 
@@ -76,7 +76,7 @@
             $titleElem    = currentPost.find(titleSelector).first()
             ;
 
-        sharedData['imageSrc'] = $closestImage.length && $closestImage.attr('src');
+        $closestImage.length &&  sharedData['imageSources'].push($closestImage.attr('src'));
         sharedData['title']    = $titleElem.length && $titleElem.text();
         sharedData['url']      = $urlElem.length && $urlElem.attr('href');
         sharedData['text']     = $textElem.length && $textElem.text();

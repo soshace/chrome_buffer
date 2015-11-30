@@ -47,7 +47,7 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.buffer-overlay__share-modal button {
+.buffer-overlay__share-modal > button {
   display: block;
   width: 200px;
   height: 40px;
@@ -62,7 +62,7 @@
   font-weight: 400;
   color: white;
 }
-.buffer-overlay__share-modal button:hover {
+.buffer-overlay__share-modal > button:hover {
   background: #2d99ec;
 }
 .buffer-overlay__share-modal__close {
@@ -100,14 +100,6 @@
   background-color: #fff;
   overflow: hidden;
   border-radius: 3px;
-}
-.buffer-overlay__share-modal__details .thumbnail img {
-  position: absolute;
-  display: table-cell;
-  vertical-align: middle;
-  width: 100%;
-  max-width: 100%;
-  text-align: center;
 }
 .buffer-overlay__share-modal__details .title {
   display: block;
@@ -155,4 +147,28 @@
 .buffer-overlay__share-modal__details .text-content:focus,
 .buffer-overlay__share-modal__details .text-content:active {
   background-color: #fff9ea;
+}
+.slick-slider .slick-track {
+  height: 120px;
+}
+.slick-slider .slick-arrow {
+  background-color: white !important;
+  opacity: 0.2;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  height: 100%;
+  width: 20%;
+  z-index: 1;
+}
+.slick-slider .slick-arrow:before {
+  color: black;
+}
+.slick-slider .slick-arrow:hover {
+  opacity: 0.4;
+}
+.slick-slider .slick-arrow.slick-prev {
+  left: 0;
+}
+.slick-slider .slick-arrow.slick-next {
+  right: 0;
 }
