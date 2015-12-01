@@ -57,7 +57,7 @@
             ;
 
         $button.append($text);
-        $text.text('Share!');
+        $text.text('Add!');
         $action.append($button);
 
         return $action;
