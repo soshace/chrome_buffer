@@ -57,7 +57,7 @@
             ;
 
         $button.append($text);
-        $text.text('Add!');
+        $text.text('Add');
         $action.append($button);
 
         return $action;
