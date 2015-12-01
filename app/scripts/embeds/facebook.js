@@ -51,7 +51,7 @@
 
         $shareRoots.each(function (index, el) {
             if (!$(el).siblings('.buffer-share').length) {
-                $shareBtn = $('<span class="buffer-share"><a href="#"><span>Share!</span></a></span>');
+                $shareBtn = $('<span class="buffer-share"><a href="#"><span>Add!</span></a></span>');
                 $shareBtn.click(onShareBtnClick.bind($shareBtn));
 
                 $(el).after($shareBtn);
