@@ -51,6 +51,7 @@
             "js": [
                 "bower_components/jquery/dist/jquery.min.js",
                 "bower_components/slick-carousel/slick/slick.js",
+                "scripts/utils.js",
                 "scripts/post-storage.js",
                 "scripts/text-grabber.js",
                 "scripts/chrome-buffer.js",
