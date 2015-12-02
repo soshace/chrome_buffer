@@ -1,7 +1,7 @@
 (function ($) {
     var SERVICE_NAME = 'all',
-        MIN_IMAGE_WIDTH = 150,
-        MIN_IMAGE_HEIGHT = 150,
+        MIN_IMAGE_WIDTH = 100,
+        MIN_IMAGE_HEIGHT = 100,
         sharedData = {
             title: '',
             text: '',
