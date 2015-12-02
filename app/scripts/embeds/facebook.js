@@ -1,6 +1,5 @@
 (function ($) {
     var SERVICE_NAME = 'facebook',
-        attached = false,
         sharedData = {
             title: '',
             text: '',
@@ -8,13 +7,14 @@
             url: ''
         },
 
-        imageSelector =[
+        imageSelector = [
             'img._46-i',
             '.uiScaledImageContainer img',
             '.uiPhotoThumb img',
             '.photoUnit img',
             '.fbPhotoImage',
-            '.spotlight'
+            '.spotlight',
+            '._3x-2 img._1445'
         ].join(', '),
 
         titleSelector = [
@@ -25,7 +25,7 @@
             '._6m7'
         ].join(', '),
 
-        urlSelector =  [
+        urlSelector = [
             '.mbs._6m6 a',
             'a.shareMediaLink',
             '.uiAttachmentTitle a',
@@ -34,6 +34,14 @@
             'a.uiVideoLink',
             '.shareLink a:not([href="#"])',
             '._52c6'
+        ].join(', '),
+
+        videoTextSelector = [
+            '.userContent p'
+        ].join(', '),
+
+        videoUrlSelector = [
+            '._5pcq'
         ].join(', ')
         ;
     check();
@@ -66,16 +74,24 @@
     }
 
     function updateSharedData(currentPost) {
-        var $textElem     = currentPost.find(textSelector).first(),
-            $urlElem      = currentPost.find(urlSelector).first(),
-            $titleElem    = currentPost.find(titleSelector).first()
+        var $textElem = currentPost.find(textSelector).first(),
+            $urlElem = currentPost.find(urlSelector).first(),
+            $titleElem = currentPost.find(titleSelector).first(),
+            videoExists = !!currentPost.find('._3x-2 video').length
             ;
 
-        sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
-        sharedData['title']    = $titleElem.length && $titleElem.text();
-        sharedData['url']      = $urlElem.length && $urlElem.attr('href');
-        sharedData['text']     = $textElem.length && $textElem.text();
-        sharedData['service']  = SERVICE_NAME;
+        if (videoExists) {
+            $textElem = currentPost.find(videoTextSelector).first();
+            sharedData['imageSources'] = [currentPost.find(imageSelector).first().css('background-image').slice(4, -1)];
+            $urlElem = currentPost.find(videoUrlSelector).first();
+        } else {
+            sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
+        }
+
+        sharedData['title'] = $titleElem.length && $titleElem.text();
+        sharedData['url'] = $urlElem.length && $urlElem[0].href;
+        sharedData['text'] = $textElem.length && $textElem.text();
+        sharedData['service'] = SERVICE_NAME;
         return sharedData;
     }
 
