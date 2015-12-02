@@ -65,6 +65,9 @@ ChromeBuffer = (function (w) {
             $detailsField.append($urlField);
             $detailsField.append($textField);
 
+            // Useless part of modal window
+            $modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/useless.html"));
+
             $parent.appendTo($('body'));
             $parent.append($shadow);
             $parent.append($modal);
