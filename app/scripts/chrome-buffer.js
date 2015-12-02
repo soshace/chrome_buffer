@@ -188,7 +188,6 @@ ChromeBuffer = (function (w) {
                 containerRatio = IMAGE_CONTAINER_WIDTH / IMAGE_CONTAINER_HEIGHT,
                 imgRatio = imgWidth / imgHeight
                 ;
-            debugger;
             if (imgRatio > containerRatio) {
                 $img.width('100%');
                 styles = {
