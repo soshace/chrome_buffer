@@ -5,7 +5,6 @@
   width: 100%;
   height: 100%;
   z-index: 99999;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
@@ -32,35 +31,39 @@
   background-color: white;
 }
 .buffer-overlay__share-modal textarea {
-  box-sizing: border-box;
-  width: 100%;
-  height: 74px;
-  min-height: 0;
-  max-height: none;
-  padding: 14px 19px;
-  border: 1px solid #D4DCE3;
-  border-radius: 3px;
-  color: #323b43;
-  font-weight: 400;
-  line-height: 22px;
-  overflow: auto;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 74px !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 14px 19px !important;
+  border: 1px solid #D4DCE3 !important;
+  border-radius: 3px !important;
+  color: #323b43 !important;
+  font-weight: 400 !important;
+  line-height: 22px !important;
+  overflow: auto !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  background-color: white !important;
+  font-size: 16px !important;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif !important;
 }
 .buffer-overlay__share-modal > button {
-  display: block;
-  width: 200px;
-  height: 40px;
-  margin: 20px 0;
-  outline: none;
-  padding-right: 22px;
-  background: #168eea;
-  border: 1px solid #137dcf;
-  border-radius: 20px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0);
-  font-size: 14px;
-  font-weight: 400;
-  color: white;
+  display: block !important;
+  width: 200px !important;
+  height: 40px !important;
+  margin: 20px 0 !important;
+  outline: none !important;
+  padding-right: 22px !important;
+  background: #168eea !important;
+  border: 1px solid #137dcf !important;
+  border-radius: 20px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: white !important;
 }
 .buffer-overlay__share-modal > button:hover {
   background: #2d99ec;
@@ -101,6 +104,12 @@
   overflow: hidden;
   border-radius: 3px;
 }
+.buffer-overlay__share-modal__details .thumbnail .image-container {
+  display: block;
+}
+.buffer-overlay__share-modal__details .thumbnail .image-container img {
+  position: absolute;
+}
 .buffer-overlay__share-modal__details .title {
   display: block;
   float: left;
@@ -112,6 +121,8 @@
   text-align: left;
   outline: none;
   color: #323b43;
+  font-size: 16px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 .buffer-overlay__share-modal__details .title:hover,
 .buffer-overlay__share-modal__details .title:focus,
@@ -141,7 +152,6 @@
   outline: none;
   font-size: 12px;
   color: #59626a;
-  padding: 5px;
 }
 .buffer-overlay__share-modal__details .text-content:hover,
 .buffer-overlay__share-modal__details .text-content:focus,

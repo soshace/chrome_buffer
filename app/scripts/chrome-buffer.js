@@ -21,7 +21,10 @@ ChromeBuffer = (function (w) {
             url: '',
             comment: ''
         },
-        TEXT_LENGTH = 150
+        TEXT_LENGTH = 150,
+
+        IMAGE_CONTAINER_WIDTH = 240,
+        IMAGE_CONTAINER_HEIGHT = 120
         ;
     return {
 
@@ -137,17 +140,24 @@ ChromeBuffer = (function (w) {
 
         appendThumbnailImages: function (sources, $parent) {
             var $img,
-                $div = $('<div></div>')
+                $imageContainer,
+                $div = $('<div></div>'),
+                self = this
                 ;
 
             if (!(sources instanceof Array)) {
                 sources = [sources];
             }
-            sources.forEach(function(src) {
+            sources.forEach(function (src) {
+                $imageContainer = $('<div class="image-container"></div>');
                 $img = $('<img />');
                 $img.attr('src', src);
+                $img.load((function () {
+                    self.styleThumbImage(this);
+                }).bind($img));
                 $img.show();
-                $div.append($img);
+                $imageContainer.append($img);
+                $div.append($imageContainer);
             });
 
             $parent.append($div);
@@ -169,6 +179,32 @@ ChromeBuffer = (function (w) {
 
         closeParent: function () {
             $parent.hide()
+        },
+
+        styleThumbImage: function ($img) {
+            var styles = {},
+                imgWidth = $img.width(),
+                imgHeight = $img.height(),
+                containerRatio = IMAGE_CONTAINER_WIDTH / IMAGE_CONTAINER_HEIGHT,
+                imgRatio = imgWidth / imgHeight
+                ;
+            debugger;
+            if (imgRatio > containerRatio) {
+                $img.width('100%');
+                styles = {
+                    'margin-top': -$img.height() / 2 + 'px',
+                    'top': '50%',
+                    'left': 0
+                };
+            } else {
+                $img.height('100%');
+                styles = {
+                    'margin-left': -$img.width() / 2 + 'px',
+                    'left': '50%',
+                    'top': 0
+                };
+            }
+            $img.css(styles);
         },
 
         _onEditableBlur: function () {
