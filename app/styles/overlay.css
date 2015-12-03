@@ -272,3 +272,36 @@
   text-indent: -4.5px;
   overflow: hidden;
 }
+.new-extension-composer-design .extension-modal-composer #overlay-actions {
+  width: auto;
+  float: none;
+  padding: 16px;
+  border-top: 1px solid #ced7df;
+}
+.new-extension-composer-design .extension-modal-composer #overlay-actions #media-uploader {
+  min-width: 0;
+  overflow: hidden;
+}
+#overlay-actions #media-uploader {
+  min-width: 210px;
+  float: left;
+  line-height: .8;
+}
+.media-uploader {
+  height: 0;
+  text-align: center;
+  color: #fff;
+}
+.media-uploader.with-link + #button-insert-media {
+  width: auto;
+}
+.media-uploader + #button-insert-media {
+  width: 48px;
+  height: 48px;
+  min-width: 0;
+  padding: 6px 12px;
+  line-height: 36px;
+  color: #323b43!important;
+  font-size: 12px;
+  overflow: hidden;
+}

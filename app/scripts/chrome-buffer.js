@@ -66,7 +66,7 @@ ChromeBuffer = (function (w) {
             $detailsField.append($textField);
 
             // Useless part of modal window
-            $modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/useless.html"));
+            //$modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/useless.html"));
 
             $parent.appendTo($('body'));
             $parent.append($shadow);
@@ -75,6 +75,9 @@ ChromeBuffer = (function (w) {
             $modal.append($detailsField);
             $modal.append($submitBtn);
             $modal.append($closeBtn);
+
+            // Useless part of modal window
+            //$modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/useless-footer.html"));
 
             $titleField.blur(this._onEditableBlur);
             $textField.blur(this._onEditableBlur);

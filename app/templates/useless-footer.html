@@ -1,0 +1,55 @@
+<hr/>
+<div id="overlay-actions" class="clearfix">
+
+    <div id="media-uploader">
+        <div class="media-uploader with-link" id="media-uploader-view4">
+            <div class="qq-upload-drop-area" style="display: none;">
+                <!-- <span><span class="hidden">Click</span> or drag a photo here to upload!</span> -->
+            </div>
+            <div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;">
+                <span class="upload-tooltip">Click or drag a photo/video here</span>
+                <span class="upload-click">Click</span>
+                <input type="file" name="file"
+                       style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;">
+            </div>
+            <div class="qq-upload-progress">
+		<span class="bar">
+		</span>
+            </div>
+            <ul class="qq-upload-list"></ul>
+        </div>
+        <button id="button-insert-media" type="button" class="left tip" title="Upload a photo or video">
+            <span class="ss-camera"></span>
+	<span class="js-media-upload media-upload">
+			Replace link with a photo or video
+
+	</span>
+	<span class="js-media-upload-progress media-upload-progress">
+		<span class="js-upload-step upload-step">
+					Replace link with a photo or video
+
+</span>
+		<span class="js-upload-percentage upload-percentage">
+		</span>
+	</span>
+        </button>
+    </div>
+    <a class="pablo-link button" href="/pablo?utm_campaign=extension_composer" target="_blank">Create an image</a>
+
+    <div id="custom-time"><span class="time"></span> <span class="remove">×</span></div>
+
+    <a id="unshorten" class="tooltip" original-title="" style="left: 160px;"><i class="ss-icon action">↺</i> <span>Unshorten link</span></a>
+
+    <div id="unshorten-message" class="shorten-message">
+        <span class="button">Ctrl + Click</span> a shortened link to unshorten it
+    </div>
+    <div id="shorten-message" class="shorten-message">
+        <span class="button">Ctrl + Click</span> an unshortened link to shorten it
+    </div>
+    <div class="js-share-tooltip-display share-tooltip-display"></div>
+    <div class="js-share-tooltip-anchor share-tooltip-anchor" style="display: none;"></div>
+    <div class="notifications">
+        <p class="notice"></p>
+        <a class="close-reveal-modal-notice hidden" title="Close">×</a>
+    </div>
+</div>
