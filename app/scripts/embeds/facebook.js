@@ -82,8 +82,13 @@
 
         if (videoExists) {
             $textElem = currentPost.find(videoTextSelector).first();
-            sharedData['imageSources'] = [currentPost.find(imageSelector).first().css('background-image').slice(4, -1)];
             $urlElem = currentPost.find(videoUrlSelector).first();
+
+            if (currentPost.find(imageSelector).length) {
+                sharedData['imageSources'] = [currentPost.find(imageSelector).first().css('background-image').slice(4, -1)];
+            } else {
+                sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
+            }
         } else {
             sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
         }
