@@ -69,6 +69,7 @@
             "js": [
                 "bower_components/jquery/dist/jquery.min.js",
                 "bower_components/slick-carousel/slick/slick.js",
+                "scripts/libs/jquery.loadTemplate-1.5.0.js",
                 "scripts/embeds/facebook.js"
             ],
             "css": [
@@ -86,6 +87,7 @@
             ],
             "js": [
                 "bower_components/slick-carousel/slick/slick.js",
+                "scripts/libs/jquery.loadTemplate-1.5.0.js",
                 "scripts/embeds/twitter.js"
             ],
             "css": [
@@ -99,6 +101,7 @@
             ],
             "js": [
                 "bower_components/slick-carousel/slick/slick.js",
+                "scripts/libs/jquery.loadTemplate-1.5.0.js",
                 "scripts/embeds/linkedin.js"
             ],
             "css": [
@@ -112,6 +115,7 @@
             ],
             "js": [
                 "bower_components/slick-carousel/slick/slick.js",
+                "scripts/libs/jquery.loadTemplate-1.5.0.js",
                 "scripts/embeds/google-plus.js"
             ],
             "css": [
