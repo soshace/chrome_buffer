@@ -11,19 +11,23 @@
         },
 
         imageSelector =[
-            '.content .side-article a .image-container img'
+            '.content .side-article a .image-container img',
+            '.content .rich-media a .image-container img'
         ].join(', '),
 
         titleSelector = [
-            '.content .side-article .side .content a h4'
+            '.content .side-article .side .content a h4',
+            '.content .rich-media .side .content a h4'
         ].join(','),
 
         textSelector = [
-            '.content .side-article .side .content a .snippet-container'
+            '.content .side-article .side .content a .snippet-container',
+            '.content .rich-media .side .content a .snippet-container'
         ].join(', '),
 
         urlSelector =  [
-            '.content .side-article .side .content a'
+            '.content .side-article .side .content a',
+            '.content .rich-media .side .content a'
         ].join(', ')
         ;
     check();
