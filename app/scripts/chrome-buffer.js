@@ -50,7 +50,7 @@ ChromeBuffer = (function (w) {
             $modal = $('<div class="buffer-overlay__share-modal"></div>');
             $shadow = $('<div class="buffer-overlay__shadow"></div>');
 
-            $commentField = $('<textarea placeholder="What would you like to add?"></textarea>');
+            $commentField = $('<textarea class="comment" placeholder="What would you like to add?"></textarea>');
             $submitBtn = $('<button type="submit">Add</button>');
             $closeBtn = $('<div class="buffer-overlay__share-modal__close"><span>x</span></div>');
 
@@ -60,24 +60,24 @@ ChromeBuffer = (function (w) {
             $textField = $('<div class="text-content" contenteditable="true" data-field="text"></div>');
             $urlField = $('<a target="_blank" class="url"></a>');
 
+            $detailsField.append($commentField);
             $detailsField.append($thumbnail);
             $detailsField.append($titleField);
             $detailsField.append($urlField);
             $detailsField.append($textField);
 
             // Useless part of modal window
-            //$modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/useless.html"));
+            $modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/header.html"));
 
             $parent.appendTo($('body'));
             $parent.append($shadow);
             $parent.append($modal);
-            $modal.append($commentField);
             $modal.append($detailsField);
             $modal.append($submitBtn);
             $modal.append($closeBtn);
 
             // Useless part of modal window
-            //$modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/useless-footer.html"));
+            $modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/footer.html"));
 
             $titleField.blur(this._onEditableBlur);
             $textField.blur(this._onEditableBlur);
