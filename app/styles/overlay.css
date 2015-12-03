@@ -28,23 +28,23 @@
   margin-top: -250px;
   background-color: white;
 }
-.buffer-overlay__share-modal button {
-  display: block !important;
-  float: right !important;
-  width: 200px !important;
-  height: 40px !important;
-  margin: 20px !important;
-  outline: none !important;
-  padding-right: 22px !important;
-  background: #168eea !important;
-  border: 1px solid #137dcf !important;
-  border-radius: 20px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0) !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  color: white !important;
+.buffer-overlay__share-modal > button {
+  display: block;
+  float: right;
+  width: 200px;
+  height: 40px;
+  margin: 20px;
+  outline: none;
+  padding-right: 22px;
+  background: #168eea;
+  border: 1px solid #137dcf;
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0);
+  font-size: 14px;
+  font-weight: 400;
+  color: white;
 }
-.buffer-overlay__share-modal button:hover {
+.buffer-overlay__share-modal > button:hover {
   background: #2d99ec;
 }
 .buffer-overlay__share-modal__close {
@@ -74,25 +74,25 @@
   border-bottom: 1px solid #d4dce3;
 }
 .buffer-overlay__share-modal__details .comment {
-  box-sizing: border-box !important;
-  margin-bottom: 15px !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  height: 74px !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  padding: 14px 19px !important;
-  border: 1px solid #D4DCE3 !important;
-  border-radius: 3px !important;
-  color: #323b43 !important;
-  font-weight: 400 !important;
-  line-height: 22px !important;
-  overflow: auto !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  background-color: white !important;
-  font-size: 16px !important;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif !important;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 100%;
+  height: 74px;
+  min-height: 0;
+  max-height: none;
+  padding: 14px 19px;
+  border: 1px solid #D4DCE3;
+  border-radius: 3px;
+  color: #323b43;
+  font-weight: 400;
+  line-height: 22px;
+  overflow: auto;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: white;
+  font-size: 16px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 .buffer-overlay__share-modal__details .thumbnail {
   position: relative;
@@ -164,7 +164,7 @@
   height: 120px;
 }
 .slick-slider .slick-arrow {
-  background-color: white !important;
+  background-color: white;
   opacity: 0.2;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
@@ -297,7 +297,7 @@
   padding: 12px 18px 6px;
   z-index: 10;
   background: #fff;
-  color: #8b959e !important;
+  color: #8b959e;
   margin: 20px 0;
   border: none;
 }

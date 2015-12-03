@@ -34,7 +34,9 @@
     "web_accessible_resources": [
         "http://fonts.googleapis.com/",
         "https://*.google-analytics.com/**/*",
-        "templates/*"
+        "templates/*",
+        "styles/overlay.css",
+        "bower_components/*"
     ],
     "content_scripts": [
         {

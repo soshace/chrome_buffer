@@ -24,7 +24,13 @@ ChromeBuffer = (function (w) {
         TEXT_LENGTH = 150,
 
         IMAGE_CONTAINER_WIDTH = 240,
-        IMAGE_CONTAINER_HEIGHT = 120
+        IMAGE_CONTAINER_HEIGHT = 120,
+
+        MODAL_STYLES = [
+            '/styles/overlay.css',
+            '/bower_components/slick-carousel/slick/slick-theme.css',
+            '/bower_components/slick-carousel/slick/slick.css'
+        ]
         ;
     return {
 
@@ -46,7 +52,7 @@ ChromeBuffer = (function (w) {
              *    </div>
              */
 
-            $parent = $('<div class="buffer-overlay" style="display: none"></div>');
+            $parent = $('<iframe class="buffer-overlay" style="display: none"></iframe>');
             $modal = $('<div class="buffer-overlay__share-modal"></div>');
             $shadow = $('<div class="buffer-overlay__shadow"></div>');
 
@@ -70,8 +76,7 @@ ChromeBuffer = (function (w) {
             $modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/header.html"));
 
             $parent.appendTo($('body'));
-            $parent.append($shadow);
-            $parent.append($modal);
+
             $modal.append($detailsField);
             $modal.append($submitBtn);
             $modal.append($closeBtn);
@@ -85,6 +90,22 @@ ChromeBuffer = (function (w) {
             $submitBtn.click(this.addPost.bind(this));
             $shadow.click(this.closeParent);
             $closeBtn.click(this.closeParent);
+
+            $parent.contents().find('body').append($shadow);
+            $parent.contents().find('body').append($modal);
+
+            this.appendStyles($parent, MODAL_STYLES);
+        },
+
+        appendStyles: function ($window, stylesArray) {
+            var $link;
+            stylesArray.forEach(function (styleHref) {
+                $link = $('<link />');
+                $link.attr('rel', 'stylesheet');
+                $link.attr('type', 'text/css');
+                $link.attr('href', 'chrome-extension://' + chrome.runtime.id + styleHref);
+                $window.contents().find('head').append($link);
+            });
         },
 
         toggleOverlay: function (data) {
