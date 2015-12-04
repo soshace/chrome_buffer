@@ -1,6 +1,9 @@
 (function ($) {
     var SERVICE_NAME = 'twitter',
-        postSelector = '.stream-item-footer .buffer-inserted',
+        postSelector = [
+            '.stream-item-footer .js-actions',
+            ''
+        ],
         compareChildSelector = '.ProfileTweet-action--buffer-share',
         sharedData = {
             title: '',
