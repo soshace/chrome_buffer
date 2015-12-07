@@ -85,7 +85,7 @@
             $urlElem = currentPost.find(videoUrlSelector).first();
 
             if (currentPost.find(imageSelector).length) {
-                sharedData['imageSources'] = [currentPost.find(imageSelector).first().css('background-image').slice(4, -1)];
+                sharedData['imageSources'] = [currentPost.find(imageSelector).first().css('background-image').slice(4, -1).split('"').join('')];
             } else {
                 sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
             }
