@@ -12,7 +12,8 @@
         },
 
         imageSelector = [
-            '.OldMedia [data-image-url] img'
+            '.OldMedia [data-image-url] img',
+            '.AdaptiveMedia [data-image-url] img'
         ].join(', '),
 
         titleSelector = [
@@ -43,7 +44,8 @@
                 $shareBtn = createTwitterActionButton();
                 $shareBtn.click(onShareBtnClick.bind($shareBtn));
 
-                $(el).append($shareBtn);
+                //$(el).append($shareBtn);
+                $shareBtn.insertBefore($(el).find('.ProfileTweet-action--more'));
             }
         });
     }
@@ -91,7 +93,7 @@
 
         sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
         sharedData['title'] = $titleElem.length && $titleElem.text();
-        sharedData['url'] = $urlElem.length && $urlElem.attr('href');
+        sharedData['url'] = $urlElem.data('expanded-url') || $urlElem.attr('href');
         sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service'] = SERVICE_NAME;
         return sharedData;

@@ -183,8 +183,13 @@
 .slick-slider .slick-arrow:before {
   font-family: "SSStandard", sans-serif;
   font-size: 14px;
-  color: black;
   line-height: 40px;
+  color: #323b43 !important;
+  outline: none !important;
+  background: transparent !important;
+}
+.slick-slider .slick-arrow:focus {
+  background-color: white;
 }
 .slick-slider .slick-arrow:hover {
   background: #f9f9f9;
