@@ -7,3 +7,16 @@
   background-position-y: 7px !important;
   background-position-x: 11px !important;
 }
+.buffer-share.KRktze {
+  display: flex;
+  height: 36px;
+  width: 36px !important;
+  background-color: #eee;
+  border-radius: 50%;
+  clear: both;
+  background-size: 18px !important;
+  background-position-y: 9px !important;
+  background-position-x: 9px !important;
+  opacity: 0.6;
+  cursor: pointer;
+}
