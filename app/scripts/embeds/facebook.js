@@ -14,7 +14,8 @@
             '.photoUnit img',
             '.fbPhotoImage',
             '.spotlight',
-            '._3x-2 img._1445'
+            '._3x-2 img._1445',
+            '._9_m._30j'
         ].join(', '),
 
         titleSelector = [
@@ -25,7 +26,9 @@
             '._6m7'
         ].join(', '),
 
-        urlSelector = [
+    // Replacing string with array because we need elements to be sorted by selector
+        urlSelectorArray = [
+            '._52c6',
             '.mbs._6m6 a',
             'a.shareMediaLink',
             '.uiAttachmentTitle a',
@@ -33,8 +36,9 @@
             'a.shareLink',
             'a.uiVideoLink',
             '.shareLink a:not([href="#"])',
-            '._52c6'
-        ].join(', '),
+            'a.uiLinkSubtle',
+            '._5pcq'
+        ],
 
         videoTextSelector = [
             '.userContent p'
@@ -75,29 +79,64 @@
 
     function updateSharedData(currentPost) {
         var $textElem = currentPost.find(textSelector).first(),
-            $urlElem = currentPost.find(urlSelector).first(),
             $titleElem = currentPost.find(titleSelector).first(),
             videoExists = !!currentPost.find('._3x-2 video').length
             ;
 
+        sharedData['imageSources'] = [];
         if (videoExists) {
             $textElem = currentPost.find(videoTextSelector).first();
             $urlElem = currentPost.find(videoUrlSelector).first();
 
             if (currentPost.find(imageSelector).length) {
                 sharedData['imageSources'] = [currentPost.find(imageSelector).first().css('background-image').slice(4, -1).split('"').join('')];
-            } else {
-                sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
             }
-        } else {
+        }
+
+        if (!sharedData['imageSources'][0]) {
             sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
         }
 
         sharedData['title'] = $titleElem.length && $titleElem.text();
-        sharedData['url'] = $urlElem.length && $urlElem[0].href;
+        sharedData['url'] = getUrlBySelectorArray(urlSelectorArray, currentPost);
         sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service'] = SERVICE_NAME;
         return sharedData;
+    }
+
+    function getUrlBySelectorArray(urlSelectorArray, $parent) {
+        var url = '',
+            urlElem,
+            redirectUrlRegex = /facebook.com\/l.php/
+            ;
+        urlSelectorArray.forEach(function (sel) {
+            if (!url) {
+                urlElem = $parent.find(sel);
+                if (urlElem.length) {
+                    url = urlElem[0].href;
+                }
+            }
+        });
+        if (redirectUrlRegex.test(url)) {
+            url = getUrlParameter(url, 'u');
+            url = decodeURIComponent(url);
+        }
+        return url;
+    }
+
+    function getUrlParameter(sPageURL, sParam) {
+        var splitterRegex = /&|\?/,
+            sURLVariables = sPageURL.split(splitterRegex),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
     }
 
 })(jQuery);
