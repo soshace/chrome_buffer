@@ -198,10 +198,20 @@ ChromeBuffer = (function (w) {
             }, 0)
         },
 
-        addPost: function () {
+        addPost: function (e) {
+            var $el = $(e.target),
+                self = this;
             sharedData.comment = $commentField.val();
             sharedData.date = (new Date()).toString();
-            PostStorage.push(sharedData, this.closeParent);
+            PostStorage.push(sharedData, function () {
+                $el.addClass('bg-green');
+                $el.text('Added');
+                setTimeout(function () {
+                    self.closeParent();
+                    $el.removeClass('bg-green');
+                    $el.text('Add');
+                }, 1500)
+            });
         },
 
         closeParent: function () {
