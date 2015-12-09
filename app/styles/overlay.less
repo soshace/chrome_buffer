@@ -189,33 +189,54 @@
 }
 
 // Slick styles
+@font-face {
+    font-family: "SSStandard";
+    src: url('../fonts/ss-standard.eot');
+    src: url('../fonts/ss-standard.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/ss-standard.woff') format('woff'),
+    url('../fonts/ss-standard.ttf')  format('truetype'),
+    url('../fonts/ss-standard.svg#SSStandard') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .slick-slider {
+
     .slick-track {
         height: 120px;
     }
     .slick-arrow {
         background-color: white;
-        opacity: 0.2;
         -webkit-transition: opacity 0.3s;
         transition: opacity 0.3s;
-        height: 100%;
-        width: 20%;
+        height: 36px;
+        top: 62px;
+        width: 27px;
         z-index: 1;
 
         &:before {
-            color: black
+            font-family: "SSStandard", sans-serif;
+            font-size: 14px;
+            color: black;
+            line-height: 40px;
         }
 
         &:hover {
-            opacity: 0.4;
+            background: #f9f9f9;
         }
 
         &.slick-prev {
             left: 0;
+            &:before {
+                content: '◅';
+            }
         }
 
         &.slick-next {
             right: 0;
+            &:before {
+                content: '▻';
+            }
         }
     }
 }
