@@ -23,6 +23,7 @@
             '.Al.pf .Mt img',
             '.Al.pf .Mt img',
             '.Al.pf img.ar.Mc',
+            'img.ar.Mc',
             'img.JZUAbb'
         ].join(', '),
 
