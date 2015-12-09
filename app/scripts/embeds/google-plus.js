@@ -26,7 +26,8 @@
         ].join(', '),
 
         urlSelector =  [
-            '.ot-anchor'
+            '.d-s.ot-anchor',
+            '.d-s.ob'
         ].join(', ')
         ;
     check();
@@ -74,7 +75,7 @@
 
         sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
         sharedData['title']    = $titleElem.length && $titleElem.text();
-        sharedData['url']      = $urlElem.length && $urlElem.attr('href');
+        sharedData['url']      = $urlElem.length && $urlElem[0].href;
         sharedData['text']     = $textElem.length && $textElem.text();
         sharedData['service']  = SERVICE_NAME;
         return sharedData;
