@@ -96,6 +96,11 @@
         sharedData['url'] = $urlElem.data('expanded-url') || $urlElem.attr('href');
         sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service'] = SERVICE_NAME;
+
+        if (!sharedData['imageSources'].length) {
+            sharedData['imageSources'] = [currentPost.find('[data-has-autoplayable-media="true"]').data('card-url')];
+        }
+
         return sharedData;
     }
 
