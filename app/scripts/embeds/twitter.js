@@ -29,6 +29,7 @@
     check();
 
     function check() {
+
         if (ChromeBuffer) {
             attachShareButton();
             setTimeout(check, 1500);
@@ -97,8 +98,14 @@
         sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service'] = SERVICE_NAME;
 
-        if (!sharedData['imageSources'].length) {
-            sharedData['imageSources'] = [currentPost.find('[data-has-autoplayable-media="true"]').data('card-url')];
+//        if (!sharedData['imageSources'].length) {
+//            sharedData['imageSources'] = [currentPost.find('[data-has-autoplayable-media="true"]').data('card-url')];
+//        }
+
+        if (sharedData['url'].indexOf('http://youtu.be')+1 || sharedData['url'].indexOf('https://youtu.be')+1) {
+            var re = new RegExp("[a-zA-Z0-9_-]{11}");
+            var videoId = re.exec(sharedData['url'])[0];
+            sharedData['imageSources'].push('http://img.youtube.com/vi/'+videoId+'/0.jpg');
         }
 
         return sharedData;

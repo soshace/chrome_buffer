@@ -76,6 +76,10 @@
                 $img[0].src) {
                 sources.push($img[0].src)
             }
+
+            if ($("meta[property='og:image']").length) {
+                sources.push($("meta[property='og:image']").attr('content'));
+            }
         });
 
         return sources;
