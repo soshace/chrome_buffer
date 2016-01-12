@@ -82,8 +82,24 @@
 
     function onShareBtnClick() {
         var currentPost = $(this).parents('.permalink-tweet-container, .original-tweet-container, li[data-item-type="tweet"]').first();
+
         updateSharedData(currentPost);
-        ChromeBuffer.toggleOverlay(sharedData);
+
+        if (sharedData['url'].indexOf('https://vimeo.com/')+1) {
+            var re = /([0-9])\w+/;
+            var videoId = re.exec(sharedData['url'])[0];
+            $.ajax({
+                method: "GET",
+                url: "https://vimeo.com/api/v2/video/" + videoId + ".json"
+            }).success(
+            function( data ) {
+                sharedData['imageSources'].push(data[0].thumbnail_medium);
+                ChromeBuffer.toggleOverlay(sharedData);
+            });
+        } else {
+            ChromeBuffer.toggleOverlay(sharedData);
+        }
+
     }
 
     function updateSharedData(currentPost) {
@@ -100,8 +116,6 @@
 
 //        if (!sharedData['imageSources'].length) {
 //            sharedData['imageSources'] = [currentPost.find('[data-has-autoplayable-media="true"]').data('card-url')];
-//        }
-
         if (sharedData['url'].indexOf('http://youtu.be')+1 || sharedData['url'].indexOf('https://youtu.be')+1) {
             var re = new RegExp("[a-zA-Z0-9_-]{11}");
             var videoId = re.exec(sharedData['url'])[0];
