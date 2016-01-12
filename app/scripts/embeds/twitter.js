@@ -88,6 +88,7 @@
         if (sharedData['url'].indexOf('https://vimeo.com/')+1) {
             var re = /([0-9])\w+/;
             var videoId = re.exec(sharedData['url'])[0];
+
             $.ajax({
                 method: "GET",
                 url: "https://vimeo.com/api/v2/video/" + videoId + ".json"
@@ -96,6 +97,20 @@
                 sharedData['imageSources'].push(data[0].thumbnail_medium);
                 ChromeBuffer.toggleOverlay(sharedData);
             });
+
+        } else if (sharedData['url'].indexOf('https://vine.co/')+1) {
+            var re = new RegExp("[a-zA-Z0-9_-]{11}");
+            var videoId = re.exec(sharedData['url'])[0];
+
+            $.ajax({
+                method: "GET",
+                url: "https://vine.co/oembed.json?id="+videoId
+            }).success(
+                function( data ) {
+                    sharedData['imageSources'].push(data.thumbnail_url);
+                    ChromeBuffer.toggleOverlay(sharedData);
+                });
+
         } else {
             ChromeBuffer.toggleOverlay(sharedData);
         }
