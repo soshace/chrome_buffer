@@ -85,33 +85,47 @@
 
         updateSharedData(currentPost);
 
-        if (sharedData['url'].indexOf('https://vimeo.com/')+1) {
+        if (sharedData.url&&sharedData['url'].indexOf('https://vimeo.com/')+1) {
             var re = /([0-9])\w+/;
-            var videoId = re.exec(sharedData['url'])[0];
 
-            $.ajax({
-                method: "GET",
-                url: "https://vimeo.com/api/v2/video/" + videoId + ".json"
-            }).success(
-            function( data ) {
-                sharedData['imageSources'].push(data[0].thumbnail_medium);
+            if (re.exec(sharedData['url']).hasOwnProperty(0)) {
+                var videoId = re.exec(sharedData['url'])[0];
+
+                $.ajax({
+                    method: "GET",
+                    url: "https://vimeo.com/api/v2/video/" + videoId + ".json"
+                }).success(
+                    function( data ) {
+                        sharedData['imageSources'].push(data[0].thumbnail_medium);
+                        ChromeBuffer.toggleOverlay(sharedData);
+                    });
+
+            } else {
                 ChromeBuffer.toggleOverlay(sharedData);
-            });
+            }
 
-        } else if (sharedData['url'].indexOf('https://vine.co/')+1) {
+        } else if (sharedData.url&&sharedData['url'].indexOf('https://vine.co/')+1) {
             var re = new RegExp("[a-zA-Z0-9_-]{11}");
-            var videoId = re.exec(sharedData['url'])[0];
+            if (re.exec(sharedData['url']).hasOwnProperty(0)) {
+                var videoId = re.exec(sharedData['url'])[0];
 
-            $.ajax({
-                method: "GET",
-                url: "https://vine.co/oembed.json?id="+videoId
-            }).success(
-                function( data ) {
-                    sharedData['imageSources'].push(data.thumbnail_url);
-                    ChromeBuffer.toggleOverlay(sharedData);
-                });
-
+                $.ajax({
+                    method: "GET",
+                    url: "https://vine.co/oembed.json?id="+videoId
+                }).success(
+                    function( data ) {
+                        sharedData['imageSources'].push(data.thumbnail_url);
+                        ChromeBuffer.toggleOverlay(sharedData);
+                    });
+            }   else {
+                ChromeBuffer.toggleOverlay(sharedData);
+            }
         } else {
+
+
+            if (!sharedData['imageSources'].length) {
+                sharedData['imageSources'] = [currentPost.find('[data-has-autoplayable-media="true"]').data('card-url')]; }
+
             ChromeBuffer.toggleOverlay(sharedData);
         }
 
@@ -129,12 +143,16 @@
         sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service'] = SERVICE_NAME;
 
-//        if (!sharedData['imageSources'].length) {
-//            sharedData['imageSources'] = [currentPost.find('[data-has-autoplayable-media="true"]').data('card-url')];
-        if (sharedData['url'].indexOf('http://youtu.be')+1 || sharedData['url'].indexOf('https://youtu.be')+1) {
+        if (sharedData.url&& (sharedData['url'].indexOf('http://youtu.be')+1 || sharedData['url'].indexOf('https://youtu.be')+1)) {
+
             var re = new RegExp("[a-zA-Z0-9_-]{11}");
-            var videoId = re.exec(sharedData['url'])[0];
-            sharedData['imageSources'].push('http://img.youtube.com/vi/'+videoId+'/0.jpg');
+            if (re.exec(sharedData['url']).hasOwnProperty(0)) {
+                var videoId = re.exec(sharedData['url'])[0];
+                sharedData['imageSources'].push('http://img.youtube.com/vi/'+videoId+'/0.jpg');
+            } else {
+                return sharedData;
+            }
+
         }
 
         return sharedData;
