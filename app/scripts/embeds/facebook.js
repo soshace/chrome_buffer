@@ -58,7 +58,7 @@
     }
 
     function attachShareButton() {
-        var $shareRoots = $('.share_root'),
+        var $shareRoots = $('._42nr'),
             $shareBtn;
 
         $shareRoots.each(function (index, el) {
