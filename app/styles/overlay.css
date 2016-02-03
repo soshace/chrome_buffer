@@ -1,5 +1,5 @@
 .bg-green {
-  background-color: green !important;
+  background-color: green;
 }
 .buffer-overlay {
   position: fixed;
@@ -28,8 +28,7 @@
   width: 700px;
   left: 50%;
   top: 50%;
-  margin-left: -300px;
-  margin-top: -250px;
+  transform: translate(-50%, -50%);
   background-color: white;
 }
 .buffer-overlay__share-modal > button {
