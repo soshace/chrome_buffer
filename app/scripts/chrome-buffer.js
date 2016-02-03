@@ -58,7 +58,7 @@ ChromeBuffer = (function (w) {
 
             $commentField = $('<textarea class="comment" placeholder="What would you like to add?"></textarea>');
             $submitBtn = $('<button type="submit">Add</button>');
-            $closeBtn = $('<div class="buffer-overlay__share-modal__close"><span>x</span></div>');
+            $closeBtn = $('<div class="buffer-overlay__share-modal__close"></div>');
 
             $detailsField = $('<div class="buffer-overlay__share-modal__details"></div>');
             $thumbnail = $('<div class="thumbnail"></div>');
