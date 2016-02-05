@@ -165,6 +165,7 @@ ChromeBuffer = (function (w) {
 
         },
 
+        createAccount: function() {
         },
 
         appendStyles: function ($window, stylesArray) {
