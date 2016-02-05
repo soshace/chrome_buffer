@@ -116,6 +116,10 @@ ChromeBuffer = (function (w) {
 
             // if main body is still exists do not render it again
             if ($modal.find('.header-container').length) {
+                $modal.find('.header-container').show();
+                $modal.find('.buffer-overlay__share-modal__details').show();
+                $modal.find('.buffer-overlay__share-modal__close.main-window').show();
+                $modal.find('.footer').show();
                 self.prepareShare(postData);
                 return;
             }
@@ -151,7 +155,7 @@ ChromeBuffer = (function (w) {
         hideModalWindow: function() {
             $modal.find('.header-container').hide();
             $modal.find('.buffer-overlay__share-modal__details').hide();
-            $modal.find('.buffer-overlay__share-modal__close').hide();
+            $modal.find('.buffer-overlay__share-modal__close.main-window').hide();
             $modal.find('.footer').hide();
         },
 
