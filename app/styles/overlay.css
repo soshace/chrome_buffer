@@ -271,6 +271,16 @@
 .header-container .tabs .tab--active {
   background-color: white;
 }
+.header-container .user-wrapper {
+  float: right;
+  margin-right: 20px;
+}
+.header-container .user-wrapper .email {
+  color: #168eea;
+}
+.header-container .user-wrapper .logout {
+  float: right;
+}
 .footer .replace-link {
   display: block;
   float: left;

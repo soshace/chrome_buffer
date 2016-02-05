@@ -14,6 +14,10 @@ ChromeBuffer = (function (w) {
         $textField,
         $urlField,
 
+        user = {
+            email: ""
+        },
+
         sharedData = {
             title: '',
             imageSources: [],
@@ -77,7 +81,7 @@ ChromeBuffer = (function (w) {
         showLoginModal: function(postData) {
             var $authContainer = $modal.find('.auth-container');
 
-            if ($authContainer) {
+            if ($authContainer.length) {
                 $authContainer.show();
                 return;
             }
@@ -116,7 +120,11 @@ ChromeBuffer = (function (w) {
                 return;
             }
 
-            $modal.loadTemplate(chrome.extension.getURL('templates/header.html'), {}, { prepend: true });
+            $modal.loadTemplate(chrome.extension.getURL('templates/header.html'), {
+                    userEmail : user.email
+                }, {
+                    prepend: true
+                });
             $modal
                 .loadTemplate(chrome.extension.getURL('templates/main-body.html'), {}, {
                     append: true,
@@ -155,6 +163,7 @@ ChromeBuffer = (function (w) {
             })
             .success(function(err, err1, err2) {
                 console.log(arguments);
+                user.email = $emailField.val();
                 self.showMainWindow(event.data.postData);
             })
             .fail(function(err, err2, err1) {
@@ -179,7 +188,7 @@ ChromeBuffer = (function (w) {
             });
         },
 
-        toggleOverlay: function (postData) {
+        toggleOverlay: function(postData) {
             var self = this;
 
             if (!$parent) {
@@ -193,6 +202,7 @@ ChromeBuffer = (function (w) {
                 $.get('https://127.0.0.1:8081/api/email')
                     .success(function(data, textStatus, jqXHR) {
                         self.showMainWindow(postData);
+                        user.email = data;
                     })
                     .fail(function(jqXHR, textStatus, errorThrown) {
                         self.showLoginModal(postData);
