@@ -143,6 +143,28 @@ ChromeBuffer = (function (w) {
             $modal.find('#passwordField').css('background-color', 'white');
         },
 
+        // testing auth by sending login and password
+        signIn: function(event) {
+            var $emailField = $modal.find('#emailField'),
+                $passwordField = $modal.find('#passwordField'),
+                self = this;
+
+            $.post('https://127.0.0.1:8081/auth/login', {
+                email: $emailField.val(),
+                password: $passwordField.val()
+            })
+            .success(function(err, err1, err2) {
+                console.log(arguments);
+                self.showMainWindow(event.data.postData);
+            })
+            .fail(function(err, err2, err1) {
+                console.log(arguments);
+                $emailField.css('background-color', 'rgb(255, 210, 204)');
+                $passwordField.css('background-color', 'rgb(255, 210, 204)');
+            })
+
+        },
+
         },
 
         appendStyles: function ($window, stylesArray) {
