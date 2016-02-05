@@ -74,26 +74,35 @@ ChromeBuffer = (function (w) {
             this.appendStyles($parent, MODAL_STYLES);
         },
 
-            $parent.appendTo($('body'));
+        showLoginModal: function(postData) {
+            var $authContainer = $modal.find('.auth-container');
 
-            $modal.append($detailsField);
-            $modal.append($submitBtn);
-            $modal.append($closeBtn);
+            if ($authContainer) {
+                $authContainer.show();
+                return;
+            }
 
-            // Useless part of modal window
-            $modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/footer.html"));
+            $modal.loadTemplate(chrome.extension.getURL('templates/auth.html'), {}, { append: true });
 
-            $titleField.blur(this._onEditableBlur);
-            $textField.blur(this._onEditableBlur);
+            $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent);
 
-            $submitBtn.click(this.addPost.bind(this));
-            $shadow.click(this.closeParent);
-            $closeBtn.click(this.closeParent);
+            $modal.on('click', '#sign-in-account', { postData: postData }, this.signIn.bind(this));
+            $modal.on('click', '#create-account', this.createAccount);
 
-            $parent.contents().find('body').append($shadow);
-            $parent.contents().find('body').append($modal);
+            $modal.on('focus', '#emailField', this.resetLoginWarnings);
+            $modal.on('focus', '#passwordField', this.resetLoginWarnings);
+        },
 
-            this.appendStyles($parent, MODAL_STYLES);
+        removeLoginModal: function() {
+            $modal.find('.auth-container').hide();
+
+            //@todo: remove when auth modal will be stable
+            //$modal.off('click', '#sign-in-account', this.signIn.bind(this));
+            //$modal.off('click', '#create-account', this.createAccount);
+            //
+            //$modal.off('focus', '#emailField', this.resetLoginWarnings);
+            //$modal.off('focus', '#passwordField', this.resetLoginWarnings);
+        },
         },
 
         appendStyles: function ($window, stylesArray) {
