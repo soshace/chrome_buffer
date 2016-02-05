@@ -103,6 +103,46 @@ ChromeBuffer = (function (w) {
             //$modal.off('focus', '#emailField', this.resetLoginWarnings);
             //$modal.off('focus', '#passwordField', this.resetLoginWarnings);
         },
+
+        showMainWindow: function(postData) {
+            var self = this;
+
+            this.removeLoginModal();
+            $modal.css('background-color', 'white');
+
+            // if main body is still exists do not render it again
+            if ($modal.find('.header-container').length) {
+                self.prepareShare(postData);
+                return;
+            }
+
+            $modal.loadTemplate(chrome.extension.getURL('templates/header.html'), {}, { prepend: true });
+            $modal
+                .loadTemplate(chrome.extension.getURL('templates/main-body.html'), {}, {
+                    append: true,
+                    complete: function() {
+                        $titleField = $modal.find('.title');
+                        $textField = $modal.find('.text-content');
+                        $urlField = $modal.find('.url');
+                        $commentField = $modal.find('.comment');
+                        $thumbnail = $modal.find('.thumbnail');
+                        self.prepareShare(postData);
+                    }
+                });
+            $modal.loadTemplate(chrome.extension.getURL('templates/footer.html'), {}, { append: true });
+
+            $modal.on('blur', '.title', this._onEditableBlur);
+            $modal.on('blur', '.text-content', this._onEditableBlur);
+
+            $modal.on('click', '#addPostButton', this.addPost.bind(this));
+            $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent);
+        },
+
+        resetLoginWarnings: function() {
+            $modal.find('#emailField').css('background-color', 'white');
+            $modal.find('#passwordField').css('background-color', 'white');
+        },
+
         },
 
         appendStyles: function ($window, stylesArray) {
