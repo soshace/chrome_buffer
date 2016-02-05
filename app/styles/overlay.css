@@ -281,7 +281,13 @@
   color: #168eea;
 }
 .header-container .user-wrapper .logout {
+  color: #168eea;
+  text-decoration: underline;
   float: right;
+}
+.header-container .user-wrapper .logout:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 .footer .replace-link {
   display: block;

@@ -144,6 +144,15 @@ ChromeBuffer = (function (w) {
 
             $modal.on('click', '#addPostButton', this.addPost.bind(this));
             $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent);
+
+            $modal.on('click', '.logout', { postData: postData }, this.logOut.bind(this));
+        },
+
+        hideModalWindow: function() {
+            $modal.find('.header-container').hide();
+            $modal.find('.buffer-overlay__share-modal__details').hide();
+            $modal.find('.buffer-overlay__share-modal__close').hide();
+            $modal.find('.footer').hide();
         },
 
         resetLoginWarnings: function() {
@@ -161,17 +170,34 @@ ChromeBuffer = (function (w) {
                 email: $emailField.val(),
                 password: $passwordField.val()
             })
-            .success(function(err, err1, err2) {
+            .success(function(data, textStatus, jqXHR) {
                 console.log(arguments);
                 user.email = $emailField.val();
                 self.showMainWindow(event.data.postData);
+                $emailField.val('');
+                $passwordField.val('');
             })
-            .fail(function(err, err2, err1) {
+            .fail(function(jqXHR, textStatus, errorThrown) {
                 console.log(arguments);
                 $emailField.css('background-color', 'rgb(255, 210, 204)');
                 $passwordField.css('background-color', 'rgb(255, 210, 204)');
             })
+        },
 
+        logOut: function(event) {
+            var self = this;
+
+            $.post('https://127.0.0.1:8081/auth/logout')
+                .success(function(data, textStatus, jqXHR) {
+                    console.log(arguments);
+                    user.email = "";
+                    self.hideModalWindow();
+                    self.showLoginModal(event.data.postData);
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.log(arguments);
+                    console.error('Cannot log out!');
+                })
         },
 
         createAccount: function() {
