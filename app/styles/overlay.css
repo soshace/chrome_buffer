@@ -31,6 +31,7 @@
   transform: translate(-50%, -50%);
   background-color: transparent;
   border-radius: 3px;
+  font-family: "Open sans", Helvetica, Arial, sans-serif;
 }
 .buffer-overlay__share-modal button {
   display: block;
@@ -240,7 +241,7 @@
 .header-container .socials p {
   margin-left: 10px;
   margin-top: 2px;
-  font-size: 12px;
+  font-size: 11px;
   color: #363c40;
 }
 .header-container .tabs {
@@ -258,7 +259,7 @@
   background-color: #f8f8f8;
 }
 .header-container .tabs .tab a {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 44px;
   text-align: center;
   height: 39px;
@@ -272,6 +273,7 @@
   background-color: white;
 }
 .header-container .user-wrapper {
+  font-size: 12px;
   float: right;
   margin-right: 20px;
 }
@@ -284,7 +286,7 @@
 .footer .replace-link {
   display: block;
   float: left;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 21px;
   text-decoration: none;
   background: #fff;
@@ -326,7 +328,7 @@
 .footer .create-image {
   display: block;
   float: left;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 21px;
   text-decoration: none;
   padding: 12px 18px 6px;
