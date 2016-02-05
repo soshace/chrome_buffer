@@ -91,7 +91,7 @@ ChromeBuffer = (function (w) {
             $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent);
 
             $modal.on('click', '#sign-in-account', { postData: postData }, this.signIn.bind(this));
-            $modal.on('click', '#create-account', this.createAccount);
+            $modal.on('click', '#create-account', { postData: postData }, this.createAccount.bind(this));
 
             $modal.on('focus', '#emailField', this.resetLoginWarnings);
             $modal.on('focus', '#passwordField', this.resetLoginWarnings);
@@ -124,24 +124,33 @@ ChromeBuffer = (function (w) {
                 return;
             }
 
-            $modal.loadTemplate(chrome.extension.getURL('templates/header.html'), {
+            // give an order to template async loading process
+            $.Deferred().resolve().then(function() {
+                $modal.loadTemplate(chrome.extension.getURL('templates/header.html'), {
                     userEmail : user.email
                 }, {
-                    prepend: true
-                });
-            $modal
-                .loadTemplate(chrome.extension.getURL('templates/main-body.html'), {}, {
-                    append: true,
+                    prepend: true,
                     complete: function() {
-                        $titleField = $modal.find('.title');
-                        $textField = $modal.find('.text-content');
-                        $urlField = $modal.find('.url');
-                        $commentField = $modal.find('.comment');
-                        $thumbnail = $modal.find('.thumbnail');
-                        self.prepareShare(postData);
+                        return $.Deferred().resolve();
                     }
                 });
-            $modal.loadTemplate(chrome.extension.getURL('templates/footer.html'), {}, { append: true });
+            }).then(function() {
+                $modal
+                    .loadTemplate(chrome.extension.getURL('templates/main-body.html'), {}, {
+                        append: true,
+                        complete: function() {
+                            $titleField = $modal.find('.title');
+                            $textField = $modal.find('.text-content');
+                            $urlField = $modal.find('.url');
+                            $commentField = $modal.find('.comment');
+                            $thumbnail = $modal.find('.thumbnail');
+                            self.prepareShare(postData);
+                            return $.Deferred().resolve();
+                        }
+                    });
+            }).then(function() {
+                $modal.loadTemplate(chrome.extension.getURL('templates/footer.html'), {}, { append: true });
+            });
 
             $modal.on('blur', '.title', this._onEditableBlur);
             $modal.on('blur', '.text-content', this._onEditableBlur);
@@ -204,7 +213,28 @@ ChromeBuffer = (function (w) {
                 })
         },
 
-        createAccount: function() {
+        createAccount: function(event) {
+            var $emailField = $modal.find('#emailField'),
+                $passwordField = $modal.find('#passwordField'),
+                self = this;
+
+            $.post('https://127.0.0.1:8081/auth/register', {
+                email: $emailField.val(),
+                password: $passwordField.val()
+            })
+            .success(function(data, textStatus, jqXHR) {
+                console.log(arguments);
+                user.email = $emailField.val();
+                self.showMainWindow(event.data.postData);
+                $emailField.val('');
+                $passwordField.val('');
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                console.log(arguments);
+                console.error('Cannot register new user!');
+                $emailField.css('background-color', 'rgb(255, 210, 204)');
+                $passwordField.css('background-color', 'rgb(255, 210, 204)');
+            })
         },
 
         appendStyles: function ($window, stylesArray) {
