@@ -297,7 +297,7 @@ ChromeBuffer = (function (w) {
         },
 
         closeParent: function () {
-            $parent.hide()
+            $parent.hide();
         },
 
         styleThumbImage: function ($img) {
