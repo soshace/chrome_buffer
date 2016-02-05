@@ -56,24 +56,23 @@ ChromeBuffer = (function (w) {
             $modal = $('<div class="buffer-overlay__share-modal"></div>');
             $shadow = $('<div class="buffer-overlay__shadow"></div>');
 
-            $commentField = $('<textarea class="comment" placeholder="What would you like to add?"></textarea>');
-            $submitBtn = $('<button type="submit">Add</button>');
-            $closeBtn = $('<div class="buffer-overlay__share-modal__close"></div>');
+            $parent.appendTo($('body'));
 
-            $detailsField = $('<div class="buffer-overlay__share-modal__details"></div>');
-            $thumbnail = $('<div class="thumbnail"></div>');
-            $titleField = $('<h3 class="title" contenteditable="true" data-field="title"></h3>');
-            $textField = $('<div class="text-content" contenteditable="true" data-field="text"></div>');
-            $urlField = $('<a target="_blank" class="url"></a>');
+            $parent
+                .contents()
+                .find('body')
+                .loadTemplate(chrome.extension.getURL('templates/spinning-icon.html'), {
+                        spinningIconSrc: chrome.extension.getURL('images/ajax-loader.gif')
+                    }, {
+                        prepend: true
+                    });
+            $parent.contents().find('body').append($shadow);
+            $parent.contents().find('body').append($modal);
 
-            $detailsField.append($commentField);
-            $detailsField.append($thumbnail);
-            $detailsField.append($titleField);
-            $detailsField.append($urlField);
-            $detailsField.append($textField);
+            $shadow.click(this.closeParent);
 
-            // Useless part of modal window
-            $modal.append($("<div/>").loadTemplate("chrome-extension://" + chrome.runtime.id + "/templates/header.html"));
+            this.appendStyles($parent, MODAL_STYLES);
+        },
 
             $parent.appendTo($('body'));
 
