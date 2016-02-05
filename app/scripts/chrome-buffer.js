@@ -108,7 +108,9 @@ ChromeBuffer = (function (w) {
             });
         },
 
-        toggleOverlay: function (data) {
+        toggleOverlay: function (postData) {
+            var self = this;
+
             if (!$parent) {
                 this.init();
             }
@@ -116,8 +118,17 @@ ChromeBuffer = (function (w) {
             if ($parent.is(":visible")) {
                 $parent.hide();
             } else {
-                this.prepareShare(data);
-                $parent.show();
+                 //check if extensions is logged in or not
+                $.get('https://127.0.0.1:8081/api/email')
+                    .success(function(data, textStatus, jqXHR) {
+                        self.showMainWindow(postData);
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                        self.showLoginModal(postData);
+                    })
+                    .always(function(data, textStatus, jqXHR) {
+                        $parent.show();
+                    });
             }
         },
 
