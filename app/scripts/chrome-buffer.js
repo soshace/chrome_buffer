@@ -201,8 +201,8 @@ ChromeBuffer = (function (w) {
                  //check if extensions is logged in or not
                 $.get('https://127.0.0.1:8081/api/email')
                     .success(function(data, textStatus, jqXHR) {
-                        self.showMainWindow(postData);
                         user.email = data;
+                        self.showMainWindow(postData);
                     })
                     .fail(function(jqXHR, textStatus, errorThrown) {
                         self.showLoginModal(postData);
