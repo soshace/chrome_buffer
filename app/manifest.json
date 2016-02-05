@@ -35,6 +35,7 @@
         "fonts/ss-standard.woff",
         "http://fonts.googleapis.com/",
         "https://*.google-analytics.com/**/*",
+        "images/*.gif",
         "templates/*",
         "styles/overlay.css",
         "bower_components/*"
