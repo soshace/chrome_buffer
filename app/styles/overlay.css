@@ -390,12 +390,12 @@
   outline: 0;
 }
 .auth-container .form-input:hover {
-  outline: none;
   outline: 0;
+  border: 1px solid #168eea;
 }
 .auth-container .form-input:focus {
-  outline: none;
   outline: 0;
+  border: 1px solid #168eea;
 }
 .auth-container #create-account {
   width: 48%;
