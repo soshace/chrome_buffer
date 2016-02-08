@@ -120,8 +120,34 @@
             }   else {
                 ChromeBuffer.toggleOverlay(sharedData);
             }
-        } else {
+        } else if (sharedData.url && sharedData['url'].indexOf('https://amp.twimg.com/')+1) {
+            var linkWithTwitterCard = currentPost.find('.js-macaw-cards-iframe-container').first().data('src'),
+                reLink = new RegExp(/https:\\\/\\\/pbs.twimg.com[0-9A-Za-z\?=&;\\\/_-]*[0-9]*x[0-9]*/g),
+                reSlash = new RegExp(/\\/g),
+                reAmpersand = new RegExp(/&amp;/g);
 
+            $.ajax({
+                method: "GET",
+                url: "https://twitter.com" + linkWithTwitterCard
+            }).success(
+                function (data) {
+                    // get image link to https://pbs.twimg.com thumbnail
+                    try {
+                        var thumbnail = data
+                                .match(reLink)[0]         // get link to the thumbnail
+                                .replace(reSlash, '')        // remove backwards slash
+                                .replace(reAmpersand, '&');   // remove '&' HTML entity
+
+                        sharedData['imageSources'].push(thumbnail);
+                    } catch(e) {
+                        console.error('Something wrong with a image parser from https://amp.twimg.com');
+                    }
+                    ChromeBuffer.toggleOverlay(sharedData);
+            }).fail(function() {
+                ChromeBuffer.toggleOverlay(sharedData);
+            });
+
+        } else {
 
             if (!sharedData['imageSources'].length) {
                 sharedData['imageSources'] = [currentPost.find('[data-has-autoplayable-media="true"]').data('card-url')]; }
