@@ -1,6 +1,6 @@
 (function ($) {
     var SERVICE_NAME = 'google-plus',
-        isNewUi = !!$('c-fpdnbb').length,
+        isNewUi = !!$('.xdjHt.ex5ZEb'), // New UI Google+ logo
         postSelector = [
             '.Yp.yt.Xa',
             '.V2SCpf.vCjazd',
