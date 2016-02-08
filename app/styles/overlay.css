@@ -51,6 +51,7 @@
 }
 .buffer-overlay__share-modal button:hover {
   background: #2d99ec;
+  cursor: pointer;
 }
 .buffer-overlay__share-modal__close {
   position: absolute;
