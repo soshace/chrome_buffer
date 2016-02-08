@@ -161,7 +161,7 @@ ChromeBuffer = (function (w) {
             $modal.on('click', '.logout', { postData: postData }, this.logOut.bind(this));
         },
 
-        hideModalWindow: function() {
+        hideMainWindow: function() {
             $modal.find('.header-container').hide();
             $modal.find('.buffer-overlay__share-modal__details').hide();
             $modal.find('.buffer-overlay__share-modal__close.main-window').hide();
@@ -204,7 +204,7 @@ ChromeBuffer = (function (w) {
                 .success(function(data, textStatus, jqXHR) {
                     console.log(arguments);
                     user.email = "";
-                    self.hideModalWindow();
+                    self.hideMainWindow();
                     self.showLoginModal(event.data.postData);
                 })
                 .fail(function(jqXHR, textStatus, errorThrown) {
@@ -265,6 +265,7 @@ ChromeBuffer = (function (w) {
                         self.showMainWindow(postData);
                     })
                     .fail(function(jqXHR, textStatus, errorThrown) {
+                        self.hideMainWindow();
                         self.showLoginModal(postData);
                     })
                     .always(function(data, textStatus, jqXHR) {
