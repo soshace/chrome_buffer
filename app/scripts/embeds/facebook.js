@@ -19,11 +19,20 @@
         ].join(', '),
 
         titleSelector = [
-            '.mbs._6m6 a'
-        ].join(','),
+            '.mbs._6m6 a',
+            '._153',
+            '._l53',
+            '._3x-2 ._l53',
+            '._50f7'
+        ].join(', '),
+
+        priorityTextSelector = '._6m7',
 
         textSelector = [
-            '._6m7'
+            '.userContent',
+            '._3x-2 .userContent',
+            '.text_exposed_root',
+            '._5pco'
         ].join(', '),
 
     // Replacing string with array because we need elements to be sorted by selector
@@ -40,14 +49,21 @@
             '._5pcq'
         ],
 
+        priorityVideoTextSelector = '.userContent p',
+
         videoTextSelector = [
-            '.userContent p'
+            '._5pco p'
         ].join(', '),
 
         videoUrlSelector = [
             '._5pcq'
+        ].join(', '),
+
+        excludeTextSelector = [
+            '._43f9' // 'See translation' link
         ].join(', ')
         ;
+
     check();
 
     function check() {
@@ -78,15 +94,19 @@
     }
 
     function updateSharedData(currentPost) {
-        var $textElem = currentPost.find(textSelector).first(),
+        // get main text for a reposted link to $textElem
+        var $textElem = getTextElementByPriority(currentPost, priorityTextSelector, textSelector),
             $titleElem = currentPost.find(titleSelector).first(),
-            videoExists = !!currentPost.find('._3x-2 video').length
+            videoExists = !!currentPost.find('._3x-2 video').length,
+            textToExclude = currentPost.find(excludeTextSelector).first().text()
+            //$urlElem
             ;
 
         sharedData['imageSources'] = [];
         if (videoExists) {
-            $textElem = currentPost.find(videoTextSelector).first();
-            $urlElem = currentPost.find(videoUrlSelector).first();
+            $textElem = getTextElementByPriority(currentPost, priorityVideoTextSelector, videoTextSelector);
+            //@todo: implement direct URL to video if required
+            //$urlElem = currentPost.find(videoUrlSelector).first();
 
             if (currentPost.find(imageSelector).length) {
                 sharedData['imageSources'] = [currentPost.find(imageSelector).first().css('background-image').slice(4, -1).split('"').join('')];
@@ -99,9 +119,32 @@
 
         sharedData['title'] = $titleElem.length && $titleElem.text();
         sharedData['url'] = getUrlBySelectorArray(urlSelectorArray, currentPost);
-        sharedData['text'] = $textElem.length && $textElem.text();
+        sharedData['text'] = $textElem.length && $textElem.text().replace(textToExclude, '');
         sharedData['service'] = SERVICE_NAME;
         return sharedData;
+    }
+
+    /**
+     * Gets $textElement using priority and checking if element has a text
+     * @param {object} currentPost            jquery current param object
+     * @param {string} priorityTextSelector   high priority selector to choose
+     * @param {string} textSelector           remaining selector to use
+     */
+    function getTextElementByPriority(currentPost, priorityTextSelector, textSelector) {
+        var $textElem = currentPost.find(priorityTextSelector).first(),
+            textToExclude = currentPost.find(excludeTextSelector).first().text(); // 'See translation' <span>
+
+        if ($textElem.length && $textElem.text() !== '') {
+            return $textElem;
+        } else {
+            currentPost.find(textSelector).each(function(index, el) {
+                if ($(el).text().replace(textToExclude, '') !== '') {
+                    $textElem = $(el);
+                }
+            });
+        }
+
+        return $textElem;
     }
 
     function getUrlBySelectorArray(urlSelectorArray, $parent) {
