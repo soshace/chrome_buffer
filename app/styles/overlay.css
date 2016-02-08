@@ -33,7 +33,7 @@
   border-radius: 3px;
   font-family: "Open sans", Helvetica, Arial, sans-serif;
 }
-.buffer-overlay__share-modal button {
+.buffer-overlay__share-modal button#addPostButton {
   display: block;
   float: right;
   width: 185px;
@@ -49,7 +49,7 @@
   font-weight: 400;
   color: white;
 }
-.buffer-overlay__share-modal button:hover {
+.buffer-overlay__share-modal button#addPostButton:hover {
   background: #2d99ec;
   cursor: pointer;
 }
