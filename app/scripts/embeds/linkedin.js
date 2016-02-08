@@ -4,9 +4,19 @@
         postSelector = [
             '.feed-update.channel-recommend-article',
             '.feed-update.member-share-article',
-            '.feed-update.company-share-article'
+            '.feed-update.company-share-article',
+            '.feed-update.school-share-article',
+            '.feed-update.member-like-share',
+            '.feed-update.member-comment-share',
+
+            'article'
         ].join(', '),
-        compareChildSelector = 'li .buffer-share',
+
+        compareChildSelector = [
+            'li .buffer-share',
+            'a.buffer-share'
+        ].join(', '),
+
         sharedData = {
             title: '',
             text: '',
@@ -18,24 +28,34 @@
             '.content .side-article a .image-container img',
             '.content .rich-media a .image-container img',
             '.content .shared-image img',
-            '.content .video-embedded img.video-thumbnail'
+            '.content .video-embedded img.video-thumbnail',
+
+            '.article-cover img',
+            '.article-content img'
         ].join(', '),
 
         titleSelector = [
             '.content .side-article .side .content a h4',
             '.content .rich-media .side .content a h4',
-            '.content .video-embedded .embedly-info h4'
+            '.content .video-embedded .embedly-info h4',
+            '.content .sub-headline',
+
+            '.article-title'
         ].join(', '),
 
         textSelector = [
             '.content .side-article .side .content a .snippet-container',
             '.content .rich-media .side .content a .snippet-container',
-            '.content .video-embedded .embedly-info p'
+            '.content .video-embedded .embedly-info p',
+            '.content .text-entity p',
+
+            '.article-body p'
         ].join(', '),
 
         urlSelector = [
             '.content .side-article .side .content a',
-            '.content .rich-media .side .content a'
+            '.content .rich-media .side .content a',
+            '.content .text-entity a'
         ].join(', '),
 
         // For video links that stored in data-href
@@ -43,6 +63,7 @@
             '.content .video-thumbnail-container'
         ].join(', ')
         ;
+
     check();
 
     function check() {
@@ -57,9 +78,17 @@
             $shareBtn;
 
         $shareContainer.each(function (index, el) {
-            var $actions = $(el).find('.actions');
+            var linkedInArticles = false,
+                $actions;
+            if ($(el).is('article')) {
+                linkedInArticles = true;
+                $actions = $(el).find('.article-comments .actions');
+            } else {
+                $actions = $(el).find('.actions');
+            }
+
             if (!$actions.has(compareChildSelector).length) {
-                $shareBtn = createLinkedinActionButton();
+                $shareBtn = createLinkedinActionButton(linkedInArticles);
                 $shareBtn.click(onShareBtnClick.bind($shareBtn));
 
                 $actions.append($shareBtn);
@@ -67,26 +96,45 @@
         });
     }
 
-    function createLinkedinActionButton() {
-        var $action = $('<li></li>'),
-            $button = $('<button class="buffer-share"></button>'),
-            $text = $('<span></span>')
-            ;
+    function createLinkedinActionButton(linkedInArticle) {
+        var $action,
+            $button,
+            $text,
+            $link;
 
-        $button.append($text);
-        $text.text('Add');
-        $action.append($button);
+        if (linkedInArticle) {
+            $link = $('<a class="buffer-share"></a>');
+            $text = $('<span></span>');
 
-        return $action;
+            $link.append($text);
+            $text.text('Add  ');
+
+            return $link;
+        } else {
+            $action = $('<li></li>');
+            $button = $('<button class="buffer-share"></button>');
+            $text = $('<span></span>');
+
+            $button.append($text);
+            $text.text('Add');
+            $action.append($button);
+
+            return $action;
+        }
     }
 
     function onShareBtnClick() {
-        var currentPost = $(this).parents(postSelector).first();
-        updateSharedData(currentPost);
+        var currentPost = $(this).parents(postSelector).first(),
+            linkedInArticle = false;
+
+        if ($(currentPost).is('article')) {
+            linkedInArticle = true;
+        }
+        updateSharedData(currentPost, linkedInArticle);
         ChromeBuffer.toggleOverlay(sharedData);
     }
 
-    function updateSharedData(currentPost) {
+    function updateSharedData(currentPost, linkedInArticle) {
         var $textElem = currentPost.find(textSelector).first(),
             $urlElem = currentPost.find(urlSelector).first(),
             $titleElem = currentPost.find(titleSelector).first()
@@ -97,6 +145,10 @@
         sharedData['url'] = $urlElem.attr('href') || currentPost.find(videoUrlSelector).data('href');
         sharedData['text'] = $textElem.length && $textElem.text();
         sharedData['service'] = SERVICE_NAME;
+
+        if (linkedInArticle) {
+            sharedData['url'] = window.location.href;
+        }
 
         return sharedData;
     }
