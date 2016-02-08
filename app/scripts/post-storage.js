@@ -33,9 +33,9 @@ PostStorage = (function ($, w) {
     };
 
     function savePost(post, successCb) {
-        var protocol = location.protocol,
-            port = protocol == 'http:' ? 8080 : 8081,
-            url = '//127.0.0.1:' + port + '/posts'
+        var protocol = 'https:',
+            port = protocol === 'https:' ? 8081 : 8080,
+            url = '//127.0.0.1:' + port + '/api/posts/'
             ;
         $.ajax({
             url: url,
