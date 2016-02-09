@@ -364,6 +364,13 @@ ChromeBuffer = (function (w) {
                     $el.removeClass('bg-green');
                     $el.text('Add');
                 }, 1500)
+            }, function(err) {
+                if (err.status === 401) {
+                    self.hideMainWindow();
+                    self.showLoginModal($.extend(true, {}, sharedData));
+                } else {
+                    console.log('Post cannot be posted to server');
+                }
             });
         },
 

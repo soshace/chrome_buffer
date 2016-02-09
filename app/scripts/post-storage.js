@@ -4,7 +4,7 @@ PostStorage = (function ($, w) {
         storageName = 'buffer_posts';
 
     return {
-        push: function (post, cb) {
+        push: function (post, cb, fb) {
             syncStorage.get(storageName, function (data) {
                 var currentPosts = [],
                     res = {}
@@ -20,7 +20,7 @@ PostStorage = (function ($, w) {
 
                 savePost(post, function () {
                     syncStorage.set(res, cb);
-                });
+                }, fb);
             });
         },
 
@@ -32,7 +32,7 @@ PostStorage = (function ($, w) {
         }
     };
 
-    function savePost(post, successCb) {
+    function savePost(post, successCb, failCb) {
         // currently https is set as default
         var protocol = 'https:',
             port = protocol === 'https:' ? 8081 : 8080,
@@ -43,7 +43,8 @@ PostStorage = (function ($, w) {
             type: 'PUT',
             data: JSON.stringify(post),
             contentType: 'application/json',
-            success: successCb
+            success: successCb,
+            error: failCb
         });
     }
 
