@@ -1,6 +1,5 @@
 (function ($) {
     var SERVICE_NAME = 'google-plus',
-        isNewUi = !!$('.xdjHt.ex5ZEb'), // New UI Google+ logo
         postSelector = [
             '.Yp.yt.Xa',
             '.V2SCpf.vCjazd',
@@ -74,7 +73,8 @@
     }
 
     function createGoogleActionButton() {
-        var $action = $('<div></div>');
+        var $action = $('<div></div>'),
+            isNewUi = !!$('.xdjHt.ex5ZEb').length; // New UI Google+ logo
 
         $action.addClass('buffer-share esw eswd qk Gc');
         if (isNewUi) {
