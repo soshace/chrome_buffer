@@ -8,6 +8,8 @@
             '.feed-update.school-share-article',
             '.feed-update.member-like-share',
             '.feed-update.member-comment-share',
+            '.feed-update.member-follow-company',
+            '.feed-update.people-follow-recommend',
 
             'article'
         ].join(', '),
