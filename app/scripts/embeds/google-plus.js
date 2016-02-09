@@ -45,6 +45,9 @@
             '.o-U-s'
         ],
 
+        addButtonAfterSelectorOne = '.ffa.Dg.eaGJ0e',
+        addButtonAfterSelectorTwo = '.Ut.Dg.gv1ztb',
+
         // photo links in new design are stored inside jsdata attribute
         newPhotoUrlSplitter = 'LfLzDd;'
         ;
@@ -59,15 +62,30 @@
 
     function attachShareButton() {
         var $shareContainer = $(postSelector),
+            isNewUi = !!$('.xdjHt.ex5ZEb').length, // New UI Google+ logo
             $shareBtn;
 
         $shareContainer.each(function (index, el) {
-            var $actions = $(el).find(jsActionsSelector);
+            var $actions = $(el).find(jsActionsSelector),
+                $firstPrioritySelector = $(el).find(addButtonAfterSelectorOne),
+                $secondPrioritySelector = $(el).find(addButtonAfterSelectorTwo);
+
+
             if (!$actions.has(compareChildSelector).length) {
                 $shareBtn = createGoogleActionButton();
                 $shareBtn.click(onShareBtnClick.bind($shareBtn));
 
-                $actions.prepend($shareBtn);
+                if (isNewUi) {
+                    $actions.prepend($shareBtn);
+                } else if (!isNewUi && $firstPrioritySelector.length) {
+                    // add button after '+1' and 'repost' to prevent
+                    $actions.find(addButtonAfterSelectorOne).after($shareBtn);
+                } else if (!isNewUi && $secondPrioritySelector.length) {
+                    // add button after '+1' and 'repost' to prevent
+                    $actions.find(addButtonAfterSelectorTwo).after($shareBtn);
+                } else {
+                    $actions.find(addButtonAfterSelectorOne).after($shareBtn);
+                }
             }
         });
     }
