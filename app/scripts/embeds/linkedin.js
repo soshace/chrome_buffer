@@ -45,8 +45,9 @@
             '.article-title'
         ].join(', '),
 
+        textPrioritySelector = '.content .side-article .side .content a .snippet-container',
+
         textSelector = [
-            '.content .side-article .side .content a .snippet-container',
             '.content .rich-media .side .content a .snippet-container',
             '.content .video-embedded .embedly-info p',
             '.content .text-entity p',
@@ -137,7 +138,7 @@
     }
 
     function updateSharedData(currentPost, linkedInArticle) {
-        var $textElem = currentPost.find(textSelector).first(),
+        var $textElem = getTextElementByPriority(currentPost, textPrioritySelector, textSelector),
             $urlElem = currentPost.find(urlSelector).first(),
             $titleElem = currentPost.find(titleSelector).first()
             ;
@@ -153,6 +154,30 @@
         }
 
         return sharedData;
+    }
+
+    /**
+     * Gets $textElement using priority and checking if element has a text
+     * @param {object} currentPost            jquery current param object
+     * @param {string} priorityTextSelector   high priority selector to choose
+     * @param {string} textSelector           remaining selector to use
+     */
+    function getTextElementByPriority(currentPost, priorityTextSelector, textSelector) {
+        var $textElem = currentPost.find(priorityTextSelector).first(),
+            textElementWasFound = false;
+
+        if ($textElem.length && $textElem.text() !== '') {
+            return $textElem;
+        } else {
+            currentPost.find(textSelector).each(function(index, el) {
+                if ($(el).text() !== '' && !textElementWasFound) {
+                    $textElem = $(el);
+                    textElementWasFound = true;
+                }
+            });
+        }
+
+        return $textElem;
     }
 
 
