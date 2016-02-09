@@ -1,5 +1,5 @@
 .bg-green {
-  background-color: green;
+  background-color: green !important;
 }
 .buffer-overlay {
   position: fixed;
