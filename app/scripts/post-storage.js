@@ -33,9 +33,10 @@ PostStorage = (function ($, w) {
     };
 
     function savePost(post, successCb) {
+        // currently https is set as default
         var protocol = 'https:',
             port = protocol === 'https:' ? 8081 : 8080,
-            url = '//127.0.0.1:' + port + '/api/posts/'
+            url = protocol + '//127.0.0.1:' + port + '/api/posts/'
             ;
         $.ajax({
             url: url,
