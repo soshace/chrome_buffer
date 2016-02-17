@@ -274,9 +274,11 @@
   background-color: white;
 }
 .header-container .user-wrapper {
+  margin-left: 15px;
+  margin-top: 8px;
+  float: left;
   font-size: 12px;
-  float: right;
-  margin-right: 20px;
+  line-height: 17px;
 }
 .header-container .user-wrapper .email {
   color: #168eea;
@@ -284,7 +286,7 @@
 .header-container .user-wrapper .logout {
   color: #168eea;
   text-decoration: underline;
-  float: right;
+  float: left;
 }
 .header-container .user-wrapper .logout:hover {
   cursor: pointer;
