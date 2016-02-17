@@ -7,6 +7,8 @@ ChromeBuffer = (function (w) {
         $submitBtn,
         $closeBtn,
 
+        $folderDropdown,
+
         $detailsField,
         $thumbnail,
         $imageBox,
@@ -23,7 +25,8 @@ ChromeBuffer = (function (w) {
             imageSources: [],
             text: '',
             url: '',
-            comment: ''
+            comment: '',
+            folder: ''
         },
         TEXT_LENGTH = 150,
 
@@ -88,7 +91,7 @@ ChromeBuffer = (function (w) {
 
             $modal.loadTemplate(chrome.extension.getURL('templates/auth.html'), {}, { append: true });
 
-            $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent);
+            $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent.bind(this));
 
             $modal.on('click', '#sign-in-account', { postData: postData }, this.signIn.bind(this));
             $modal.on('click', '#create-account', { postData: postData }, this.createAccount.bind(this));
@@ -149,14 +152,20 @@ ChromeBuffer = (function (w) {
                         }
                     });
             }).then(function() {
-                $modal.loadTemplate(chrome.extension.getURL('templates/footer.html'), {}, { append: true });
+                $modal.loadTemplate(chrome.extension.getURL('templates/footer.html'), {}, {
+                    append: true,
+                    complete: function() {
+                        $folderDropdown = $modal.find('.folderDropdown');
+                        $folderDropdown.on('click', self.addPost.bind(self));
+                    }
+                });
             });
 
             $modal.on('blur', '.title', this._onEditableBlur);
             $modal.on('blur', '.text-content', this._onEditableBlur);
 
-            $modal.on('click', '#addPostButton', this.addPost.bind(this));
-            $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent);
+            $modal.on('click', '.addPostButton', this.toggleAddButton.bind(this));
+            $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent.bind(this));
 
             $modal.on('click', '.logout', { postData: postData }, this.logOut.bind(this));
         },
@@ -351,18 +360,73 @@ ChromeBuffer = (function (w) {
             }, 0)
         },
 
-        addPost: function (e) {
+        toggleAddButton: function(e) {
             var $el = $(e.target),
                 self = this;
+
+            if ($folderDropdown.children().length !== 1) {
+                $el.text('Add');
+                self.toggleFolderDropdown();
+                return;
+            }
+            $el.text('Fetching folders');
+
+            $.get('https://127.0.0.1:8081/api/folders')
+                .success(function(data, textStatus, jqXHR) {
+                    self.toggleFolderDropdown(JSON.parse(data));
+                    $el.text('Select folder...');
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.log('fail');
+                    $el.text('Fetching folders failed');
+                })
+        },
+
+        toggleFolderDropdown: function(elements) {
+            if (!elements) {
+                $modal.find('.addPostButton').text('Add');
+                $folderDropdown.hide();
+                // delete items without input
+                $folderDropdown.find('.folderDropdownItem:not(:has(input))').remove();
+                return;
+            }
+            // selects item with input (create folder item)
+            var item = $folderDropdown.find('.folderDropdownItem');
+            $.each(elements, function(index, folder) {
+                var $clonedItem = item.clone();
+                $clonedItem.text(folder);
+                $folderDropdown.prepend($clonedItem);
+            });
+            $folderDropdown.show();
+
+        },
+
+        addPost: function (e) {
+            var $addButton = $modal.find('.addPostButton'),
+                $folderInput = $modal.find('#createNewFolderInput'),
+                $el = $(e.target),
+                self = this;
+
+            if (!$el.hasClass('folderDropdownItem') && $el.attr('id') !== 'createNewFolderButton') {
+                return;
+            }
+
+            if ($el.attr('id') === 'createNewFolderButton') {
+                sharedData.folder = $folderInput.val();
+                $folderInput.val('');
+            } else {
+                sharedData.folder = $el.text();
+            }
+
             sharedData.comment = $commentField.val();
             sharedData.date = (new Date()).toString();
             PostStorage.push(sharedData, function () {
-                $el.addClass('bg-green');
-                $el.text('Added');
+                $addButton.addClass('bg-green');
+                $addButton.text('Added');
                 setTimeout(function () {
                     self.closeParent();
-                    $el.removeClass('bg-green');
-                    $el.text('Add');
+                    $addButton.removeClass('bg-green');
+                    $addButton.text('Add');
                 }, 1500)
             }, function(err) {
                 if (err.status === 401) {
@@ -376,6 +440,7 @@ ChromeBuffer = (function (w) {
 
         closeParent: function () {
             $parent.hide();
+            this.toggleFolderDropdown();
         },
 
         styleThumbImage: function ($img) {
