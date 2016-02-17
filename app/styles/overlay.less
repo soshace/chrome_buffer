@@ -45,28 +45,6 @@
         border-radius: 3px;
         font-family: "Open sans", Helvetica, Arial, sans-serif;
 
-        button#addPostButton {
-            display: block;
-            float: right;
-            width: 185px;
-            height: 40px;
-            margin: 20px;
-            outline: none;
-            padding-right: 22px;
-            background: @button-color;
-            border: 1px solid @button-border-color;
-            border-radius: 20px;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0);
-            font-size: 14px;
-            font-weight: 400;
-            color: white;
-
-            &:hover {
-                background: @button-hover-color;
-                cursor: pointer;
-            }
-        }
-
         &__close {
             position: absolute;
             top: -10px;
@@ -349,6 +327,8 @@
 }
 
 .footer {
+    font-size: 14px;
+
     .replace-link {
         display: block;
         float: left;
@@ -420,6 +400,121 @@
             margin-right: 8px;
             line-height: 8px;
             height: 8px;
+        }
+    }
+
+    .addPostWrapper {
+        position: relative;
+        display: block;
+        width: 187px;
+        height: 40px;
+        float: right;
+        margin: 20px;
+        border-radius: 20px;
+
+        &:hover .addPostDropdownArrowWrapper {
+            background: @button-hover-color;
+            cursor: pointer;
+        }
+
+        &:hover .addPostButton {
+            background: @button-hover-color;
+            cursor: pointer;
+        }
+    }
+
+    .addPostDropdownArrowWrapper {
+        width: 200px;
+        height: 50px;
+    }
+
+    .addPostDropdownArrowWrapper {
+        width: 30px;
+        height: 38px;
+        float: right;
+        outline: none;
+        background-color: @button-color;
+        border: 1px solid @button-border-color;
+        border-left: 1px solid #028cbe;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0);
+        color: white;
+        text-align: center;
+    }
+
+    .addPostDropdownArrow {
+        padding-top: 8px;
+    }
+
+    .addPostButton {
+        display: block;
+        float: right;
+        width: 155px;
+        height: 40px;
+        padding: 0 0 0 25px;
+        outline: none;
+        background: @button-color;
+        border: 1px solid @button-border-color;
+        border-right: none;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0);
+        font-size: 14px;
+        font-weight: 400;
+        color: white;
+    }
+
+    .folderDropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        width: 186px;
+        background-color: white;
+        border: 1px solid black;
+    }
+
+    .folderDropdownItem {
+        text-align: center;
+        border-top: 1px solid black;
+        word-break: break-all;
+        padding: 2px 0 2px 0;
+
+        &:first-child {
+            border-top: none;
+        }
+
+        &:last-child {
+            padding: 0;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: ghostwhite;
+        }
+    }
+
+    #createNewFolderInput {
+        width: 150px;
+        float: left;
+        border: 0;
+        outline: none;
+        height: 23px;
+        padding: 0 8px 0 8px;
+    }
+
+    #createNewFolderButton {
+        width: 35px;
+        background-color: @button-color;
+        border: 0;
+        height: 23px;
+        float: right;
+        color: white;
+        outline: none;
+
+        &:hover {
+            background-color: @button-hover-color;
+            cursor: pointer;
         }
     }
 }
