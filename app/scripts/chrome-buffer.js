@@ -378,7 +378,7 @@ ChromeBuffer = (function (w) {
                 apiUrl = Utils.assembleApiUrl('api/folders');
 
             // change target class if arrow button was clicked
-            if ($el.hasClass('addPostDropdownArrow')) {
+            if ($el.hasClass('addPostDropdownArrow') || $el.hasClass('addPostDropdownArrowWrapper')) {
                 $el = $modal.find('.addPostButton');
             }
 
