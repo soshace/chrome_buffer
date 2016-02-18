@@ -329,6 +329,11 @@ ChromeBuffer = (function (w) {
                 $textField.text(data.text.slice(0, TEXT_LENGTH));
                 $textField.show();
             }
+            if (data.comment) {
+                sharedData.comment = data.comment;
+                $commentField.text(data.comment);
+                $commentField.show();
+            }
 
             sharedData.service = data.service;
 
