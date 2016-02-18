@@ -82,7 +82,14 @@ ChromeBuffer = (function (w) {
         },
 
         showLoginModal: function(postData) {
-            var $authContainer = $modal.find('.auth-container');
+            var $authContainer = $modal.find('.auth-container'),
+                postDataToSend = $.extend(true, {}, postData);
+
+            $modal.off('click', '#sign-in-account', this.signIn.bind(this));
+            $modal.off('click', '#create-account', this.createAccount.bind(this));
+
+            $modal.on('click', '#sign-in-account', { postData: postDataToSend }, this.signIn.bind(this));
+            $modal.on('click', '#create-account', { postData: postDataToSend }, this.createAccount.bind(this));
 
             if ($authContainer.length) {
                 $authContainer.show();
@@ -92,9 +99,6 @@ ChromeBuffer = (function (w) {
             $modal.loadTemplate(chrome.extension.getURL('templates/auth.html'), {}, { append: true });
 
             $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent.bind(this));
-
-            $modal.on('click', '#sign-in-account', { postData: postData }, this.signIn.bind(this));
-            $modal.on('click', '#create-account', { postData: postData }, this.createAccount.bind(this));
 
             $modal.on('focus', '#emailField', this.resetLoginWarnings);
             $modal.on('focus', '#passwordField', this.resetLoginWarnings);
@@ -112,7 +116,11 @@ ChromeBuffer = (function (w) {
         },
 
         showMainWindow: function(postData) {
-            var self = this;
+            var self = this,
+                postDataToSend = $.extend(true, {}, postData),
+                $headerDeferred = $.Deferred(),
+                $bodyDeferred = $.Deferred(),
+                $footerDeferred = $.Deferred();
 
             this.removeLoginModal();
             $modal.css('background-color', 'white');
@@ -165,11 +173,16 @@ ChromeBuffer = (function (w) {
             $modal.on('blur', '.title', this._onEditableBlur);
             $modal.on('blur', '.text-content', this._onEditableBlur);
 
-            $modal.on('click', '.addPostButton', { postData: postData }, this.toggleAddButton.bind(this));
-            $modal.on('click', '.addPostDropdownArrowWrapper', { postData: postData }, this.toggleAddButton.bind(this));
+            $modal.off('click', '.addPostButton', this.toggleAddButton.bind(this));
+            $modal.off('click', '.addPostDropdownArrowWrapper', this.toggleAddButton.bind(this));
+            $modal.off('click', '.buffer-overlay__share-modal__close', this.closeParent.bind(this));
+
+            $modal.on('click', '.addPostButton', { postData: postDataToSend }, this.toggleAddButton.bind(this));
+            $modal.on('click', '.addPostDropdownArrowWrapper', { postData: postDataToSend }, this.toggleAddButton.bind(this));
             $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent.bind(this));
 
-            $modal.on('click', '.logout', { postData: postData }, this.logOut.bind(this));
+            $modal.off('click', '.logout', { postData: postDataToSend }, this.logOut.bind(this));
+            $modal.on('click', '.logout', { postData: postDataToSend }, this.logOut.bind(this));
         },
 
         hideMainWindow: function() {
@@ -199,7 +212,7 @@ ChromeBuffer = (function (w) {
             .success(function(data, textStatus, jqXHR) {
                 console.log(arguments);
                 user.email = $emailField.val();
-                self.showMainWindow(event.data.postData);
+                self.showMainWindow($.extend(true, {}, event.data.postData));
                 $emailField.val('');
                 $passwordField.val('');
             })
