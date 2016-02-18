@@ -4,12 +4,15 @@
         postSelector = [
             '.feed-update.channel-recommend-article',
             '.feed-update.member-share-article',
+            '.feed-update.member-reshare-article',
             '.feed-update.company-share-article',
             '.feed-update.school-share-article',
             '.feed-update.member-like-share',
             '.feed-update.member-comment-share',
             '.feed-update.member-follow-company',
             '.feed-update.people-follow-recommend',
+            '.feed-update.member-reshare-richmedia',
+            '.feed-update.member-like-poncho-post',
 
             'article'
         ].join(', '),
