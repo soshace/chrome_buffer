@@ -413,9 +413,11 @@ ChromeBuffer = (function (w) {
 
             if (!elements) {
                 $modal.find('.addPostButton').text('Add');
-                $folderDropdown.hide();
-                // delete items without input
-                $folderDropdown.find('.folderDropdownItem:not(:has(input))').remove();
+                if ($folderDropdown) {
+                    $folderDropdown.hide();
+                    // delete items without input
+                    $folderDropdown.find('.folderDropdownItem:not(:has(input))').remove();
+                }
                 return;
             }
             // selects item with input (create folder item)
