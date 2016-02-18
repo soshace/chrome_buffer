@@ -136,16 +136,16 @@ ChromeBuffer = (function (w) {
             }
 
             // give an order to template async loading process
-            $.Deferred().resolve().then(function() {
-                $modal.loadTemplate(chrome.extension.getURL('templates/header.html'), {
-                    userEmail : user.email
-                }, {
-                    prepend: true,
-                    complete: function() {
-                        return $.Deferred().resolve();
-                    }
-                });
-            }).then(function() {
+            $modal.loadTemplate(chrome.extension.getURL('templates/header.html'), {
+                userEmail : user.email
+            }, {
+                prepend: true,
+                complete: function() {
+                    $headerDeferred.resolve();
+                }
+            });
+
+            $.when($headerDeferred).done(function() {
                 $modal
                     .loadTemplate(chrome.extension.getURL('templates/main-body.html'), {}, {
                         append: true,
@@ -156,16 +156,19 @@ ChromeBuffer = (function (w) {
                             $commentField = $modal.find('.comment');
                             $thumbnail = $modal.find('.thumbnail');
                             self.prepareShare(postData);
-                            return $.Deferred().resolve();
+                            $bodyDeferred.resolve();
                         }
                     });
-            }).then(function() {
+            });
+
+            $.when($headerDeferred, $bodyDeferred).done(function() {
                 $modal.loadTemplate(chrome.extension.getURL('templates/footer.html'), {}, {
                     append: true,
-                    complete: function() {
+                    complete: function () {
                         $folderDropdown = $modal.find('.folderDropdown');
                         $folderDropdown.on('click', self.addPost.bind(self));
                         $folderDropdown.on('focus', '#createNewFolderInput', self.resetLoginWarnings);
+                        $footerDeferred.resolve();
                     }
                 });
             });
