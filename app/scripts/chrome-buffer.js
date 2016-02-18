@@ -165,8 +165,8 @@ ChromeBuffer = (function (w) {
             $modal.on('blur', '.title', this._onEditableBlur);
             $modal.on('blur', '.text-content', this._onEditableBlur);
 
-            $modal.on('click', '.addPostButton', this.toggleAddButton.bind(this));
-            $modal.on('click', '.addPostDropdownArrowWrapper', this.toggleAddButton.bind(this));
+            $modal.on('click', '.addPostButton', { postData: postData }, this.toggleAddButton.bind(this));
+            $modal.on('click', '.addPostDropdownArrowWrapper', { postData: postData }, this.toggleAddButton.bind(this));
             $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent.bind(this));
 
             $modal.on('click', '.logout', { postData: postData }, this.logOut.bind(this));
@@ -331,7 +331,7 @@ ChromeBuffer = (function (w) {
             }
             if (data.comment) {
                 sharedData.comment = data.comment;
-                $commentField.text(data.comment);
+                $commentField.val(data.comment);
                 $commentField.show();
             }
 
@@ -372,8 +372,8 @@ ChromeBuffer = (function (w) {
             }, 0)
         },
 
-        toggleAddButton: function(e) {
-            var $el = $(e.target),
+        toggleAddButton: function(event) {
+            var $el = $(event.target),
                 self = this,
                 apiUrl = Utils.assembleApiUrl('api/folders');
 
@@ -387,7 +387,7 @@ ChromeBuffer = (function (w) {
                 self.toggleFolderDropdown();
                 return;
             }
-            $el.text('Fetching folders');
+            $el.text('Fetching folders...');
 
             $.get(apiUrl)
                 .success(function(data, textStatus, jqXHR) {
@@ -395,8 +395,15 @@ ChromeBuffer = (function (w) {
                     $el.text('Select folder...');
                 })
                 .fail(function(jqXHR, textStatus, errorThrown) {
-                    console.log('fail');
-                    $el.text('Fetching folders failed');
+                    if (jqXHR.status === 401) {
+                        self.hideMainWindow();
+                        event.data.postData.comment = $commentField.val();
+                        self.showLoginModal(event.data.postData);
+                    } else {
+                        console.warn('Failed to fetch folders from the server');
+                    }
+                    $el.text('Add');
+                    self.toggleFolderDropdown();
                 })
         },
 
@@ -459,6 +466,7 @@ ChromeBuffer = (function (w) {
                 if (err.status === 401) {
                     self.hideMainWindow();
                     self.showLoginModal($.extend(true, {}, sharedData));
+                    self.toggleFolderDropdown();
                 } else {
                     console.log('Post cannot be posted to server');
                 }
