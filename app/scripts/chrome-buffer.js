@@ -76,7 +76,7 @@ ChromeBuffer = (function (w) {
             $parent.contents().find('body').append($shadow);
             $parent.contents().find('body').append($modal);
 
-            $shadow.click(this.closeParent);
+            $shadow.click(this.closeParent.bind(this));
 
             this.appendStyles($parent, MODAL_STYLES);
         },
