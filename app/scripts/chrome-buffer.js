@@ -186,9 +186,10 @@ ChromeBuffer = (function (w) {
         signIn: function(event) {
             var $emailField = $modal.find('#emailField'),
                 $passwordField = $modal.find('#passwordField'),
+                apiUrl = Utils.assembleApiUrl('auth/login'),
                 self = this;
 
-            $.post('https://127.0.0.1:8081/auth/login', {
+            $.post(apiUrl, {
                 email: $emailField.val(),
                 password: $passwordField.val()
             })
@@ -207,9 +208,10 @@ ChromeBuffer = (function (w) {
         },
 
         logOut: function(event) {
-            var self = this;
+            var self = this,
+                apiUrl = Utils.assembleApiUrl('auth/logout');
 
-            $.post('https://127.0.0.1:8081/auth/logout')
+            $.post(apiUrl)
                 .success(function(data, textStatus, jqXHR) {
                     console.log(arguments);
                     user.email = "";
@@ -225,9 +227,10 @@ ChromeBuffer = (function (w) {
         createAccount: function(event) {
             var $emailField = $modal.find('#emailField'),
                 $passwordField = $modal.find('#passwordField'),
+                apiUrl = Utils.assembleApiUrl('auth/register'),
                 self = this;
 
-            $.post('https://127.0.0.1:8081/auth/register', {
+            $.post(apiUrl, {
                 email: $emailField.val(),
                 password: $passwordField.val()
             })
@@ -258,7 +261,8 @@ ChromeBuffer = (function (w) {
         },
 
         toggleOverlay: function(postData) {
-            var self = this;
+            var self = this,
+                apiUrl = Utils.assembleApiUrl('api/email');
 
             if (!$parent) {
                 this.init();
@@ -268,7 +272,7 @@ ChromeBuffer = (function (w) {
                 $parent.hide();
             } else {
                  //check if extensions is logged in or not
-                $.get('https://127.0.0.1:8081/api/email')
+                $.get(apiUrl)
                     .success(function(data, textStatus, jqXHR) {
                         user.email = data;
                         self.showMainWindow(postData);
@@ -362,7 +366,8 @@ ChromeBuffer = (function (w) {
 
         toggleAddButton: function(e) {
             var $el = $(e.target),
-                self = this;
+                self = this,
+                apiUrl = Utils.assembleApiUrl('api/folders');
 
             if ($folderDropdown.children().length !== 1) {
                 $el.text('Add');
@@ -371,7 +376,7 @@ ChromeBuffer = (function (w) {
             }
             $el.text('Fetching folders');
 
-            $.get('https://127.0.0.1:8081/api/folders')
+            $.get(apiUrl)
                 .success(function(data, textStatus, jqXHR) {
                     self.toggleFolderDropdown(JSON.parse(data));
                     $el.text('Select folder...');
