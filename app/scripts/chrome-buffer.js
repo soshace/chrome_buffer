@@ -157,6 +157,7 @@ ChromeBuffer = (function (w) {
                     complete: function() {
                         $folderDropdown = $modal.find('.folderDropdown');
                         $folderDropdown.on('click', self.addPost.bind(self));
+                        $folderDropdown.on('focus', '#createNewFolderInput', self.resetLoginWarnings);
                     }
                 });
             });
@@ -181,6 +182,7 @@ ChromeBuffer = (function (w) {
         resetLoginWarnings: function() {
             $modal.find('#emailField').css('background-color', 'white');
             $modal.find('#passwordField').css('background-color', 'white');
+            $modal.find('#createNewFolderInput').css('background-color', 'white');
         },
 
         // testing auth by sending login and password
@@ -426,7 +428,10 @@ ChromeBuffer = (function (w) {
                 return;
             }
 
-            if ($el.attr('id') === 'createNewFolderButton') {
+            if ($el.attr('id') === 'createNewFolderButton' && $folderInput.val() === '') {
+                $folderInput.css('background-color', 'rgb(255, 210, 204)');
+                return;
+            } else if ($el.attr('id') === 'createNewFolderButton' && $folderInput.val() !== '') {
                 sharedData.folder = $folderInput.val();
             } else {
                 sharedData.folder = $el.text();
