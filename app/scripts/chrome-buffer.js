@@ -433,6 +433,7 @@ ChromeBuffer = (function (w) {
             sharedData.comment = $commentField.val();
             sharedData.date = (new Date()).toString();
             PostStorage.push(sharedData, function () {
+                self.toggleFolderDropdown();
                 $addButton.addClass('bg-green');
                 $addButtonArrow.addClass('bg-green');
                 $addButton.text('Added');
