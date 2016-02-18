@@ -394,6 +394,9 @@ ChromeBuffer = (function (w) {
         },
 
         toggleFolderDropdown: function(elements) {
+            var $folderInput = $modal.find('#createNewFolderInput');
+            $folderInput.val('');
+
             if (!elements) {
                 $modal.find('.addPostButton').text('Add');
                 $folderDropdown.hide();
@@ -425,7 +428,6 @@ ChromeBuffer = (function (w) {
 
             if ($el.attr('id') === 'createNewFolderButton') {
                 sharedData.folder = $folderInput.val();
-                $folderInput.val('');
             } else {
                 sharedData.folder = $el.text();
             }
