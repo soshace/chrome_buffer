@@ -165,6 +165,7 @@ ChromeBuffer = (function (w) {
             $modal.on('blur', '.text-content', this._onEditableBlur);
 
             $modal.on('click', '.addPostButton', this.toggleAddButton.bind(this));
+            $modal.on('click', '.addPostDropdownArrowWrapper', this.toggleAddButton.bind(this));
             $modal.on('click', '.buffer-overlay__share-modal__close', this.closeParent.bind(this));
 
             $modal.on('click', '.logout', { postData: postData }, this.logOut.bind(this));
@@ -369,6 +370,11 @@ ChromeBuffer = (function (w) {
                 self = this,
                 apiUrl = Utils.assembleApiUrl('api/folders');
 
+            // change target class if arrow button was clicked
+            if ($el.hasClass('addPostDropdownArrow')) {
+                $el = $modal.find('.addPostButton');
+            }
+
             if ($folderDropdown.children().length !== 1) {
                 $el.text('Add');
                 self.toggleFolderDropdown();
@@ -408,6 +414,7 @@ ChromeBuffer = (function (w) {
 
         addPost: function (e) {
             var $addButton = $modal.find('.addPostButton'),
+                $addButtonArrow = $modal.find('.addPostDropdownArrowWrapper'),
                 $folderInput = $modal.find('#createNewFolderInput'),
                 $el = $(e.target),
                 self = this;
@@ -427,10 +434,12 @@ ChromeBuffer = (function (w) {
             sharedData.date = (new Date()).toString();
             PostStorage.push(sharedData, function () {
                 $addButton.addClass('bg-green');
+                $addButtonArrow.addClass('bg-green');
                 $addButton.text('Added');
                 setTimeout(function () {
                     self.closeParent();
                     $addButton.removeClass('bg-green');
+                    $addButtonArrow.removeClass('bg-green');
                     $addButton.text('Add');
                 }, 1500)
             }, function(err) {
