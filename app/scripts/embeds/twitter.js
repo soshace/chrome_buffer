@@ -87,7 +87,7 @@
     }
 
     function onShareBtnClick() {
-        var currentPost = $(this).parents('.permalink-tweet-container, .original-tweet-container, li[data-item-type="tweet"]').first();
+        var currentPost = $(this).parents('.permalink-tweet-container, .original-tweet-container, li[data-item-type="tweet"], .Gallery').first();
 
         updateSharedData(currentPost);
 
