@@ -23,7 +23,8 @@
             '.Al.pf .Mt img',
             '.Al.pf img.ar.Mc',
             'img.ar.Mc',
-            'img.JZUAbb'
+            'img.JZUAbb',
+            '.D7ivCe img'
         ].join(', '),
 
         titleSelector = [
@@ -40,7 +41,8 @@
         ].join(', '),
 
         secondlyTextSelector = [
-            '.Al.pf .Ct'
+            '.Al.pf .Ct',
+            '.wftCae'
         ].join(', '),
 
         urlSelectorArray =  [
