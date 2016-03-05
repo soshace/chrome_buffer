@@ -24,7 +24,13 @@
 
         urlSelector = [
             '[data-expanded-url]'
-        ].join(', ')
+        ].join(', '),
+
+        permalinkOverlaySelector = '.PermalinkOverlay',
+        twitterCardImageSelector = '.SummaryCard-image img',
+        twitterCardTitleSelector = '.SummaryCard-content .TwitterCard-title',
+        twitterCardTextSelector  = '.SummaryCard-content p',
+        twitterCardLinkSelector  = '.js-macaw-cards-iframe-container'
         ;
     check();
 
@@ -160,13 +166,23 @@
     function updateSharedData(currentPost) {
         var $textElem = currentPost.find(textSelector).first(),
             $urlElem = currentPost.find(urlSelector).first(),
-            $titleElem = currentPost.find(titleSelector).first()
+            $titleElem = currentPost.find(titleSelector).first(),
+            $twitterCard
             ;
 
-        sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
-        sharedData['title'] = $titleElem.length && $titleElem.text();
-        sharedData['url'] = $urlElem.data('expanded-url') || $urlElem.attr('href');
-        sharedData['text'] = $textElem.length && $textElem.text();
+        if (isPermalinkView() && hasIframe(currentPost)) {
+            $twitterCard = currentPost.find('iframe').first().contents();
+            sharedData['imageSources'] = Utils.getImageSources(twitterCardImageSelector, $twitterCard);
+            sharedData['title'] = $twitterCard.find(twitterCardTitleSelector).text();
+            sharedData['text'] = $twitterCard.find(twitterCardTextSelector).text();
+            sharedData['url'] = currentPost.find(twitterCardLinkSelector).data('card-url');
+        } else {
+            sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
+            sharedData['title'] = $titleElem.length && $titleElem.text();
+            sharedData['url'] = $urlElem.data('expanded-url') || $urlElem.attr('href');
+            sharedData['text'] = $textElem.length && $textElem.text();
+        }
+
         sharedData['service'] = SERVICE_NAME;
 
         if (sharedData.url&& (sharedData['url'].indexOf('http://youtu.be')+1 || sharedData['url'].indexOf('https://youtu.be')+1)) {
@@ -182,6 +198,27 @@
         }
 
         return sharedData;
+    }
+
+    /**
+     * Checks if it's detailed view with twitter card
+     */
+    function isPermalinkView() {
+        var $overlay = $(permalinkOverlaySelector);
+        if (!$overlay.length) {
+            return false;
+        }
+        return $overlay.first().css('display') !== 'none';
+    }
+
+    /**
+     * Has current post iframe or not?
+     * Twitter usually uses links inside iframes
+     * @param {object} $currentPost   jQuery current post object
+     * @returns {boolean}
+     */
+    function hasIframe($currentPost) {
+        return !!$currentPost.find('iframe').length;
     }
 
 
