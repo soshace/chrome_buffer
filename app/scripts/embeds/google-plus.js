@@ -39,6 +39,10 @@
             '.ZGIT2d.z53JKe'
         ].join(', '),
 
+        secondlyTextSelector = [
+            '.Al.pf .Ct'
+        ].join(', '),
+
         urlSelectorArray =  [
             '.d-s.ot-anchor',
             '.d-s.ob.Ks',
@@ -114,6 +118,10 @@
             $titleElem    = currentPost.find(titleSelector).first(),
             jsdata
             ;
+
+        if (!$textElem.length) {
+            $textElem = currentPost.find(secondlyTextSelector);
+        }
 
         sharedData['imageSources'] = Utils.getImageSources(imageSelector, currentPost);
         sharedData['title']    = $titleElem.text();
