@@ -34,7 +34,9 @@
 
         textSelector = [
             '.Al.pf .VwVwbf .f34nqb',
-            '.bldpQb .W65scc.AAlUBe'
+            '.bldpQb .W65scc.AAlUBe',
+            '.xuZcmb',
+            '.ZGIT2d.z53JKe'
         ].join(', '),
 
         urlSelectorArray =  [
@@ -76,7 +78,7 @@
                 $shareBtn.click(onShareBtnClick.bind($shareBtn));
 
                 if (isNewUi) {
-                    $actions.prepend($shareBtn);
+                    $actions.append($shareBtn);
                 } else if (!isNewUi && $firstPrioritySelector.length) {
                     // add button after '+1' and 'repost' to prevent
                     $actions.find(addButtonAfterSelectorOne).after($shareBtn);
