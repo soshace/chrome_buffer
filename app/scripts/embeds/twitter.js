@@ -140,19 +140,33 @@
                     // get image link to https://pbs.twimg.com thumbnail
                     try {
                         var thumbnail = data
-                                .match(reLink)[0]         // get link to the thumbnail
-                                .replace(reSlash, '')        // remove backwards slash
-                                .replace(reAmpersand, '&');   // remove '&' HTML entity
+                            .match(reLink)[0]         // get link to the thumbnail
+                            .replace(reSlash, '')        // remove backwards slash
+                            .replace(reAmpersand, '&');   // remove '&' HTML entity
 
                         sharedData['imageSources'].push(thumbnail);
-                    } catch(e) {
+                    } catch (e) {
                         console.error('Something wrong with a image parser from https://amp.twimg.com');
                     }
                     ChromeBuffer.toggleOverlay(sharedData);
-            }).fail(function() {
+                }).fail(function () {
                 ChromeBuffer.toggleOverlay(sharedData);
             });
+        } else if (hasGifIframe(currentPost)) {
+            var iframe = currentPost.find('iframe').first().contents(),
+                configContainers = iframe.find('#playerContainer'),
+                configContainer, src;
+            if (configContainers.length) {
+                configContainer = configContainers.first();
+            }
+            if (configContainer.data('config') !== undefined) {
+                src = configContainer.data('config').image_src;
+            }
 
+            if (!sharedData['imageSources'].length && src !== undefined && src.length) {
+                sharedData['imageSources'] = [src];
+            }
+            ChromeBuffer.toggleOverlay(sharedData);
         } else {
 
             if (!sharedData['imageSources'].length) {
@@ -170,7 +184,8 @@
             $twitterCard
             ;
 
-        if (isPermalinkView() && hasIframe(currentPost)) {
+        // only for detailed view with link and without video
+        if (isPermalinkView() && hasIframe(currentPost) && !hasVideoIframe(currentPost)) {
             $twitterCard = currentPost.find('iframe').first().contents();
             sharedData['imageSources'] = Utils.getImageSources(twitterCardImageSelector, $twitterCard);
             sharedData['title'] = $twitterCard.find(twitterCardTitleSelector).text();
@@ -219,6 +234,27 @@
      */
     function hasIframe($currentPost) {
         return !!$currentPost.find('iframe').length;
+    }
+
+    /**
+     * has iframe with video inside?
+     * @param {object} $currentPost   jQuery current post object
+     * @returns {boolean}
+     */
+    function hasVideoIframe($currentPost) {
+        var src = $currentPost.find('iframe').first().attr('src');
+        return src.indexOf('video') !== -1 ||
+               src.indexOf('vimeo') !== -1 ||
+               src.indexOf('vine')  !== -1;
+    }
+
+    /**
+     * has iframe with gif inside?
+     * @param {object} $currentPost   jQuery current post object
+     * @returns {boolean}
+     */
+    function hasGifIframe($currentPost) {
+        return !!$currentPost.find('iframe').first().contents().find('.gif-badge').length;
     }
 
 
