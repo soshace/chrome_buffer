@@ -13,4 +13,4 @@ $ bower install
 3. Click on 'Load unpacked extension...'
 4. And choose the 'app' directory of extension
 
-Network for professionals *https://soshace.com*
+Network for professionals [Soshace]https://soshace.com
